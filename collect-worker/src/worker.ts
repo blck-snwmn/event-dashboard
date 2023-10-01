@@ -5,21 +5,25 @@ import robotsParser from "robots-parser"
 export interface Env {
 	TARGET_URL: string;
 	BROWSER: puppeteer.BrowserWorker;
+};
+
+async function isAllowByRobots(url: string) {
+	let isAllowed = true;
+	try {
+		const robotsTextPath = new URL(url).origin + "/robots.txt";
+		const response = await fetch(robotsTextPath);
+
+		const robots = robotsParser(robotsTextPath, await response.text());
+		isAllowed = robots.isAllowed(url) ?? true; // respect robots.txt!
+	} catch {
+		// ignore
+	}
+	return isAllowed;
 }
 
 export default {
 	async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
-		let isAllowed = true;
-		try {
-			const robotsTextPath = new URL(env.TARGET_URL).origin + "/robots.txt";
-			const response = await fetch(robotsTextPath);
-
-			const robots = robotsParser(robotsTextPath, await response.text());
-			isAllowed = robots.isAllowed(env.TARGET_URL) ?? true; // respect robots.txt!
-		} catch {
-			// ignore
-		}
-
+		const isAllowed = await isAllowByRobots(env.TARGET_URL);
 		if (!isAllowed) {
 			console.log("robots.txt disallows crawling");
 			return new Response("robots.txt disallows crawling", { status: 403 });
