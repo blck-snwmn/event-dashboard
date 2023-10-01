@@ -33,7 +33,6 @@ export default {
 
 		const browser = await puppeteer.launch(env.BROWSER);
 		const page = await browser.newPage();
-		await page.setViewport({ width: 800, height: 2000 });
 
 		await page.goto(env.TARGET_URL);
 
