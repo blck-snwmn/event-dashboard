@@ -1,0 +1,8 @@
+name = "collector"
+main = "src/worker.ts"
+compatibility_date = "2023-10-14"
+
+compatibility_flags = [ "nodejs_compat" ]
+workers_dev = false
+
+browser = { binding = "BROWSER", type = "browser" }
