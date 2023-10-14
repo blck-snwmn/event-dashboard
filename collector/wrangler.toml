@@ -1,4 +1,4 @@
-name = "collector"
+name = "dash-data-collector"
 main = "src/worker.ts"
 compatibility_date = "2023-10-14"
 
