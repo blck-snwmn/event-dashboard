@@ -10,6 +10,11 @@ interface Product {
 	tags: string[];
 }
 
+interface Limit {
+	startDate: Date | null;
+	endDate: Date | null;
+}
+
 
 type Bindings = {
 	BROWSER: puppeteer.BrowserWorker;
@@ -57,6 +62,33 @@ app.post('/list', async (c) => {
 	});
 
 	return c.json(jsonData)
+})
+
+app.post('/item', async (c) => {
+	const url = c.get('url')
+
+	const browser = c.get('browser')
+
+	const page = await browser.newPage();
+	await page.goto(url);
+
+	// Extract the sale period using the specified selector
+	const salePeriodText = await page.$eval('.Product__salesPeriodHeading + *', element => element.textContent);
+
+	// Extract the start and (if available) end dates from the sale period text
+	const periodMatch = salePeriodText.match(/(\d{4})年(\d{2})月(\d{2})日 (\d{2})時(\d{2})分(?: ～ (\d{4})年(\d{2})月(\d{2})日 (\d{2})時(\d{2})分)?/);
+
+	// Convert the matched date parts to Date objects
+	const startDate = periodMatch ? new Date(periodMatch[1], periodMatch[2] - 1, periodMatch[3], periodMatch[4], periodMatch[5]) : null;
+	const endDate = periodMatch && periodMatch[6] ? new Date(periodMatch[6], periodMatch[7] - 1, periodMatch[8], periodMatch[9], periodMatch[10]) : null;
+
+
+	return c.json(
+		{
+			startDate,
+			endDate
+		} as Limit
+	)
 })
 
 export default app
