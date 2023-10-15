@@ -1,0 +1,11 @@
+name = "data-saver"
+main = "src/worker.ts"
+compatibility_date = "2023-10-14"
+
+workers_dev = false
+
+[[d1_databases]]
+binding = "DB" # i.e. available in your Worker on env.DB
+database_name = "event-products"
+database_id = "4f018058-73bb-4e3c-b61b-6f34ac9e4584"
+migrations_dir = "migrations"
