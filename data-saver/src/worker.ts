@@ -27,8 +27,44 @@ const app = new Hono<{ Bindings: Bindings, Variables: Variables }>()
 
 app.get('/products', async (c) => {
 	const db = drizzle(c.env.DB, { schema });
-	const results = await db.select().from(products).all();
-	console.log(results)
+	const rows = await db
+		.select({
+			// There is a shift in column values, possibly due to the presence of columns with the same name.
+			// To avoid this, use `select` to specify the field name.
+			id: products.id,
+			title: products.title,
+			handle: products.handle,
+			vendor: products.vendor,
+			start: products.start,
+			end: products.end,
+			tagName: tags.name
+		})
+		.from(products)
+		.leftJoin(productsToTags, eq(products.id, productsToTags.productId))
+		.leftJoin(tags, eq(productsToTags.tagId, tags.id)).all();
+
+	type productType = typeof products.$inferSelect
+
+	const results = rows.reduce<Record<number, { product: productType; tags: string[] }>>((acc, row) => {
+
+		if (!acc[row.id]) {
+			acc[row.id] = {
+				product: {
+					id: row.id,
+					title: row.title,
+					handle: row.handle,
+					vendor: row.vendor,
+					start: row.start,
+					end: row.end,
+				}, tags: []
+			}
+		}
+		if (row.tagName) {
+			acc[row.id].tags.push(row.tagName)
+		}
+
+		return acc
+	}, {})
 	return c.json(results)
 })
 
