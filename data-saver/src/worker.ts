@@ -136,9 +136,27 @@ app.put('/products', async (c) => {
 })
 
 app.post('/products', async (c) => {
+	const limit: { id: number } & Limit = await c.req.json()
+
 	const db = drizzle(c.env.DB);
-	const results = db.select().from(products).all();
-	return c.json(results)
+	const result = await db.
+		update(products)
+		.set({
+			start: strToDate(limit.startDate),
+			end: strToDate(limit.endDate),
+		})
+		.where(eq(products.id, limit.id))
+		.execute()
+	// .returning();
+
+	return c.json(result.meta)
 })
+
+function strToDate(date: string | null) {
+	if (!date) {
+		return null
+	}
+	return new Date(date)
+}
 
 export default app
