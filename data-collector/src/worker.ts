@@ -79,8 +79,8 @@ app.post('/item', async (c) => {
 	const periodMatch = salePeriodText.match(/(\d{4})年(\d{2})月(\d{2})日 (\d{2})時(\d{2})分(?: ～ (\d{4})年(\d{2})月(\d{2})日 (\d{2})時(\d{2})分)?/);
 
 	// Convert the matched date parts to Date objects
-	const startDate = periodMatch ? new Date(periodMatch[1], periodMatch[2] - 1, periodMatch[3], periodMatch[4], periodMatch[5]) : null;
-	const endDate = periodMatch && periodMatch[6] ? new Date(periodMatch[6], periodMatch[7] - 1, periodMatch[8], periodMatch[9], periodMatch[10]) : null;
+	const startDate = periodMatch ? new Date(toISOString(periodMatch.slice(1, 6))) : null;
+	const endDate = periodMatch && periodMatch[6] ? new Date(toISOString(periodMatch.slice(6, 11))) : null;
 
 
 	return c.json(
@@ -105,4 +105,10 @@ async function isAllowByRobots(url: string) {
 		// ignore
 	}
 	return isAllowed;
+}
+
+// Helper function to convert matched date parts to ISO 8601 date string with JST timezone
+function toISOString(match: string[]) {
+	const [year, month, day, hour, minute] = match;
+	return `${year.padStart(4, '0')}-${month.padStart(2, '0')}-${day.padStart(2, '0')}T${hour.padStart(2, '0')}:${minute.padStart(2, '0')}:00+09:00`;
 }
