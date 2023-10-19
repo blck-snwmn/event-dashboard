@@ -13,8 +13,9 @@ interface Product {
 }
 
 interface Limit {
-	startDate: Date | null;
-	endDate: Date | null;
+	id: number;
+	startDate: string | null;
+	endDate: string | null;
 }
 
 type Bindings = {
@@ -136,7 +137,7 @@ app.put('/products', async (c) => {
 })
 
 app.post('/products', async (c) => {
-	const limit: { id: number } & Limit = await c.req.json()
+	const limit: Limit = await c.req.json()
 
 	const db = drizzle(c.env.DB);
 	const result = await db.
