@@ -17,6 +17,7 @@ interface Limit {
 
 
 type Bindings = {
+	SELECTOR: string;
 	BROWSER: puppeteer.BrowserWorker;
 }
 type Variables = {
@@ -73,7 +74,7 @@ app.post('/item', async (c) => {
 	await page.goto(url);
 
 	// Extract the sale period using the specified selector
-	const salePeriodText = await page.$eval('.Product__salesPeriodHeading + *', element => element.textContent);
+	const salePeriodText = await page.$eval(c.env.SELECTOR, element => element.textContent);
 
 	// Extract the start and (if available) end dates from the sale period text
 	const periodMatch = salePeriodText.match(/(\d{4})年(\d{2})月(\d{2})日 (\d{2})時(\d{2})分(?: ～ (\d{4})年(\d{2})月(\d{2})日 (\d{2})時(\d{2})分)?/);
