@@ -37,6 +37,9 @@ importers:
 
   data-saver:
     dependencies:
+      dash-message:
+        specifier: workspace:^
+        version: link:../dash-message
       drizzle-orm:
         specifier: ^0.28.6
         version: 0.28.6(@cloudflare/workers-types@4.20231010.0)

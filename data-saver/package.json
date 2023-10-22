@@ -13,6 +13,7 @@
     "wrangler": "^3.0.0"
   },
   "dependencies": {
+    "dash-message": "workspace:^",
     "drizzle-orm": "^0.28.6",
     "hono": "^3.7.6"
   }

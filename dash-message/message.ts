@@ -10,3 +10,7 @@ export interface Limit {
     startDate: string | null;
     endDate: string | null;
 }
+
+export type Itemliimit = {
+    id: number;
+} & Limit;

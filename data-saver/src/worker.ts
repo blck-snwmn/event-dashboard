@@ -2,21 +2,8 @@ import { Hono } from 'hono'
 import { drizzle } from 'drizzle-orm/d1'
 import { products, productsToTags, tags } from './db/product';
 import * as schema from './db/product';
+import { Product, Itemliimit } from "dash-message/message"
 import { eq } from 'drizzle-orm';
-
-interface Product {
-	id: number;
-	title: string;
-	handle: string;
-	vendor: string;
-	tags: string[];
-}
-
-interface Limit {
-	id: number;
-	startDate: string | null;
-	endDate: string | null;
-}
 
 type Bindings = {
 	DB: D1Database;
@@ -25,6 +12,15 @@ type Variables = {
 }
 
 const app = new Hono<{ Bindings: Bindings, Variables: Variables }>()
+
+app.delete('/', async (c) => {
+	const db = drizzle(c.env.DB, { schema });
+	await db.delete(productsToTags).execute()
+	await db.delete(tags).execute()
+	await db.delete(products).execute()
+
+	return c.text("ok")
+})
 
 app.get('/products', async (c) => {
 	const db = drizzle(c.env.DB, { schema });
@@ -137,7 +133,7 @@ app.put('/products', async (c) => {
 })
 
 app.post('/products', async (c) => {
-	const limit: Limit = await c.req.json()
+	const limit: Itemliimit = await c.req.json()
 
 	const db = drizzle(c.env.DB);
 	const result = await db.
