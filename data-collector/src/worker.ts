@@ -1,19 +1,7 @@
 import puppeteer from "@cloudflare/puppeteer";
 import robotsParser from "robots-parser"
+import { Product, Limit } from "dash-message/message"
 import { Hono } from 'hono'
-
-interface Product {
-	id: number;
-	title: string;
-	handle: string;
-	vendor: string;
-	tags: string[];
-}
-
-interface Limit {
-	startDate: Date | null;
-	endDate: Date | null;
-}
 
 
 type Bindings = {

@@ -13,6 +13,7 @@
     "wrangler": "^3.0.0"
   },
   "dependencies": {
+    "dash-message": "workspace:^",
     "hono": "^3.7.6",
     "robots-parser": "^3.0.1"
   }
