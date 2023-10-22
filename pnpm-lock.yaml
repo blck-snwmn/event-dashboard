@@ -8,8 +8,13 @@ importers:
 
   .: {}
 
+  dash-message: {}
+
   data-collector:
     dependencies:
+      dash-message:
+        specifier: workspace:^
+        version: link:../dash-message
       hono:
         specifier: ^3.7.6
         version: 3.7.6
