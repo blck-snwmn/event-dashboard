@@ -7,6 +7,6 @@ export interface Product {
 }
 
 export interface Limit {
-    startDate: Date | null;
-    endDate: Date | null;
+    startDate: string | null;
+    endDate: string | null;
 }

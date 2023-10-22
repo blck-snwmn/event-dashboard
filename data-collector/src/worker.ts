@@ -74,8 +74,8 @@ app.post('/item', async (c) => {
 
 	return c.json(
 		{
-			startDate,
-			endDate
+			startDate: startDate?.toISOString() ?? null,
+			endDate: endDate?.toISOString() ?? null,
 		} as Limit
 	)
 })
