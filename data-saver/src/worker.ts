@@ -70,14 +70,9 @@ app.put('/products', async (c) => {
 	console.log(ps)
 	const db = drizzle(c.env.DB, { schema });
 
-	type newProducs = typeof products.$inferInsert;
-	type newTags = typeof tags.$inferInsert;
-	type newProductsToTags = typeof productsToTags.$inferInsert;
-
 	// save all products
 	const insertProducts = []
 	const insertTags: { name: string }[] = []
-
 
 	for (const p of ps) {
 		insertProducts.push({
