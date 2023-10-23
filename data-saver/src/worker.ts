@@ -67,7 +67,6 @@ app.get('/products', async (c) => {
 
 app.put('/products', async (c) => {
 	const ps: Product[] = await c.req.json()
-	console.log(ps)
 	const db = drizzle(c.env.DB, { schema });
 
 	// save all products
