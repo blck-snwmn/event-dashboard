@@ -50,7 +50,14 @@ app.post('/list', async (c) => {
 		return JSON.parse(body.innerText) as Product[];
 	});
 
-	return c.json(jsonData)
+	// remove unnecessary fields
+	return c.json(jsonData.map((p) => ({
+		id: p.id,
+		title: p.title,
+		handle: p.handle,
+		vendor: p.vendor,
+		tags: p.tags,
+	} as Product)))
 })
 
 app.post('/item', async (c) => {
