@@ -3,7 +3,7 @@ import { drizzle } from 'drizzle-orm/d1'
 import { products, productsToTags, tags } from './db/product';
 import * as schema from './db/product';
 import { Product, Itemliimit } from "dash-message/message"
-import { eq } from 'drizzle-orm';
+import { eq, inArray } from 'drizzle-orm';
 
 type Bindings = {
 	DB: D1Database;
@@ -113,36 +113,33 @@ app.put('/products', async (c) => {
 		throw e
 	}
 
-
-
-
 	console.info("save all products to tags")
 
 	// save all products to tags
 	const insertProductsToTags: { productId: number, tagId: number }[] = []
 	for (const p of ps) {
-		for (const tag of p.tags) {
-			const savedTag = await db.query.tags.findFirst({
-				where: eq(tags.name, tag)
-			})
-			if (!savedTag) {
-				throw new Error("tag not found")
-			}
+
+		const savedTags = await db.select().from(tags).where(inArray(tags.name, p.tags)).execute()
+		savedTags.forEach(t => {
 			insertProductsToTags.push({
 				productId: p.id,
-				tagId: savedTag.id,
+				tagId: t.id,
 			})
-		}
+		})
 	}
 	console.info(`insertProductsToTags: ${insertProductsToTags.length}`)
 
 	try {
-		const result = await db.insert(productsToTags)
-			.values(insertProductsToTags)
-			.onConflictDoNothing()
-			.execute()
+		// Save 100 items at a time.
+		const count = 50
+		for (let i = 0; i < insertProductsToTags.length; i += count) {
+			const result = await db.insert(productsToTags)
+				.values(insertProductsToTags.slice(i, i + count))
+				.onConflictDoNothing()
+				.execute()
 
-		console.info("result:", result.meta)
+			console.info("result:", result.meta)
+		}
 	} catch (e) {
 		console.error(e)
 		throw e
@@ -150,7 +147,7 @@ app.put('/products', async (c) => {
 
 	console.info("done")
 
-	return c.text("ok")
+	return new Response("ok", { status: 200 })
 })
 
 app.post('/products', async (c) => {
