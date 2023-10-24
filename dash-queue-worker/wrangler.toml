@@ -15,6 +15,10 @@ services = [
   { binding = "SAVER", service = "dash-data-saver"}
 ]
 
+[[queues.producers]]
+queue = "crawler-queue"
+binding = "QUEUE"
+
 [[queues.consumers]]
 queue = "crawler-queue"
 max_batch_timeout = 30

@@ -16,9 +16,10 @@ interface ItemCrawleMessage {
 
 
 export interface Env {
+	BASE_URL: string;
 	COLLECTER: Fetcher;
 	SAVER: Fetcher;
-	// QUEUE: Queue<CrawleMessage>;
+	QUEUE: Queue<CrawleMessage>;
 }
 
 export default {
@@ -73,7 +74,22 @@ export default {
 					msg.retry()
 					continue
 				}
-				console.log(`(type=list)success url=${msg.body.url}`)
+				console.log(`(type=list)success save: url=${msg.body.url}`)
+
+				const items: MessageSendRequest<CrawleMessage>[] = []
+				for (const p of ps) {
+					const itemURL = env.BASE_URL + p.handle
+					items.push({
+						body: {
+							id: p.id,
+							type: "item",
+							url: itemURL,
+						}
+					} as MessageSendRequest<CrawleMessage>)
+				}
+				await env.QUEUE.sendBatch(items)
+
+				console.log(`(type=list)success enqueue: url=${msg.body.url}`)
 				msg.ack()
 			} else if (msg.body.type === "item") {
 				const itemResp = await env.COLLECTER.fetch("http://localhost:8787/item", {
