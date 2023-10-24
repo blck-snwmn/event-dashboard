@@ -58,7 +58,7 @@ export default {
 					body: JSON.stringify({ url: msg.body.url }),
 				})
 				if (psResp.status !== 200) {
-					console.error("(type=list)invalid status: POST http://localhost:8787/list", msg.body.url)
+					console.error(`(type=list)invalid status ${psResp.status}: POST http://localhost:8787/list`, msg.body.url)
 					msg.retry()
 					continue
 				}
@@ -69,7 +69,7 @@ export default {
 					body: JSON.stringify(ps),
 				})
 				if (insertResp.status !== 200) {
-					console.error("(type=list)invalid status: PUT http://localhost:8787/products")
+					console.error(`(type=list)invalid status ${insertResp.status}: PUT http://localhost:8787/products`)
 					msg.retry()
 					continue
 				}
@@ -81,7 +81,7 @@ export default {
 					body: JSON.stringify({ url: msg.body.url }),
 				})
 				if (itemResp.status !== 200) {
-					console.error("(type=item)invalid status: POST http://localhost:8787/item", msg.body.url)
+					console.error(`(type=item)invalid status ${itemResp.status}: POST http://localhost:8787/item`, msg.body.url)
 					msg.retry()
 					continue
 				}
@@ -95,7 +95,7 @@ export default {
 					} as Itemliimit),
 				})
 				if (updateResp.status !== 200) {
-					console.error(`(type=item)invalid status: POST http://localhost:8787/products, id=${msg.body.id}`)
+					console.error(`(type=item)invalid status ${updateResp.status}: POST http://localhost:8787/products, id=${msg.body.id}`)
 					msg.retry()
 					continue
 				}
