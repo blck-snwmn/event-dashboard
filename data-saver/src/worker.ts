@@ -92,18 +92,28 @@ app.put('/products', async (c) => {
 		}
 	}
 	console.info(`insertProducts: ${insertProducts.length}`)
+	try {
+		const resultProducts = await db.insert(products)
+			.values(insertProducts)
+			// ignore if same id exists
+			.onConflictDoNothing()
+			.execute()
 
-	await db.insert(products)
-		.values(insertProducts)
-		// ignore if same id exists
-		.onConflictDoNothing()
-		.execute()
+		console.info("result:", resultProducts.meta)
 
-	// save all tags
-	await db.insert(tags)
-		.values(insertTags)
-		.onConflictDoNothing()
-		.execute()
+		// save all tags
+		const resultTags = await db.insert(tags)
+			.values(insertTags)
+			.onConflictDoNothing()
+			.execute()
+
+		console.info("result:", resultTags.meta)
+	} catch (e) {
+		console.error(e)
+		throw e
+	}
+
+
 
 
 	console.info("save all products to tags")
@@ -126,10 +136,17 @@ app.put('/products', async (c) => {
 	}
 	console.info(`insertProductsToTags: ${insertProductsToTags.length}`)
 
-	await db.insert(productsToTags)
-		.values(insertProductsToTags)
-		.onConflictDoNothing()
-		.execute()
+	try {
+		const result = await db.insert(productsToTags)
+			.values(insertProductsToTags)
+			.onConflictDoNothing()
+			.execute()
+
+		console.info("result:", result.meta)
+	} catch (e) {
+		console.error(e)
+		throw e
+	}
 
 	console.info("done")
 
