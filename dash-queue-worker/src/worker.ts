@@ -50,6 +50,8 @@ export default {
 
 	async queue(batch: MessageBatch<CrawleMessage>, env: Env, ctx: ExecutionContext): Promise<void> {
 		for (const msg of batch.messages) {
+			console.log("process", msg.body)
+
 			if (msg.body.type === "list") {
 				const psResp = await env.COLLECTER.fetch("http://localhost:8787/list", {
 					method: "POST",
@@ -71,6 +73,7 @@ export default {
 					msg.retry()
 					continue
 				}
+				console.log(`(type=list)success url=${msg.body.url}`)
 				msg.ack()
 			} else if (msg.body.type === "item") {
 				const itemResp = await env.COLLECTER.fetch("http://localhost:8787/item", {
@@ -96,6 +99,7 @@ export default {
 					msg.retry()
 					continue
 				}
+				console.log(`(type=item)success id=${msg.body.url}`)
 				msg.ack()
 			}
 		}
