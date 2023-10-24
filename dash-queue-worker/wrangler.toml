@@ -16,6 +16,7 @@ services = [
 ]
 
 [[queues.consumers]]
-binding = "QUEUE"
 queue = "crawler-queue"
+max_batch_timeout = 30
 max_concurrency = 1
+max_retries = 1
