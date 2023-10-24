@@ -67,6 +67,8 @@ app.get('/products', async (c) => {
 
 app.put('/products', async (c) => {
 	const ps: Product[] = await c.req.json()
+	console.info(`products: ${ps.length}`)
+
 	const db = drizzle(c.env.DB, { schema });
 
 	// save all products
@@ -89,6 +91,8 @@ app.put('/products', async (c) => {
 			})
 		}
 	}
+	console.info(`insertProducts: ${insertProducts.length}`)
+
 	await db.insert(products)
 		.values(insertProducts)
 		// ignore if same id exists
@@ -100,6 +104,9 @@ app.put('/products', async (c) => {
 		.values(insertTags)
 		.onConflictDoNothing()
 		.execute()
+
+
+	console.info("save all products to tags")
 
 	// save all products to tags
 	const insertProductsToTags: { productId: number, tagId: number }[] = []
@@ -117,11 +124,14 @@ app.put('/products', async (c) => {
 			})
 		}
 	}
+	console.info(`insertProductsToTags: ${insertProductsToTags.length}`)
 
 	await db.insert(productsToTags)
 		.values(insertProductsToTags)
 		.onConflictDoNothing()
 		.execute()
+
+	console.info("done")
 
 	return c.text("ok")
 })
