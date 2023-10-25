@@ -21,6 +21,7 @@ binding = "QUEUE"
 
 [[queues.consumers]]
 queue = "crawler-queue"
-max_batch_timeout = 30
+max_batch_timeout = 60
 max_concurrency = 1
-max_retries = 1
+max_retries = 3
+max_batch_size = 1
