@@ -28,14 +28,22 @@ app.use("*", async (c, next) => {
 
 	console.log("robots.txt allows crawling");
 
-	const browser = await puppeteer.launch(c.env.BROWSER);
+	let browser: puppeteer.Browser | null = null
+	try {
+		browser = await puppeteer.launch(c.env.BROWSER);
+		console.log("browser launched");
+		c.set('browser', browser)
+	} catch (e) {
+		console.error(e);
+		await new Promise(resolve => setTimeout(resolve, 30 * 1000));
+		return new Response("Failed to launch browser", { status: 500 });
+	}
 
-	c.set('browser', browser)
 	c.set('url', url)
 
 	await next()
 
-	await browser.close();
+	await browser?.close();
 })
 
 app.post('/list', async (c) => {
