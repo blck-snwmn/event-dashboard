@@ -92,14 +92,17 @@ app.put('/products', async (c) => {
 		}
 	}
 	console.info(`insertProducts: ${insertProducts.length}`)
+
+	type productType = typeof products.$inferInsert
+	let insertedId: productType[] = []
 	try {
-		const resultProducts = await db.insert(products)
+		insertedId = await db.insert(products)
 			.values(insertProducts)
 			// ignore if same id exists
 			.onConflictDoNothing()
-			.execute()
+			.returning()
 
-		console.info("result:", resultProducts.meta)
+		console.info("result:", insertedId, insertedId.length)
 
 		// save all tags
 		const resultTags = await db.insert(tags)
@@ -147,7 +150,7 @@ app.put('/products', async (c) => {
 
 	console.info("done")
 
-	return new Response("ok", { status: 200 })
+	return c.json(insertedId, { status: 200 })
 })
 
 app.post('/products', async (c) => {
