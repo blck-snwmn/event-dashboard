@@ -30,7 +30,7 @@ app.use("*", async (c, next) => {
 
 	console.info("waiting for browser to launch");
 
-	await new Promise(resolve => setTimeout(resolve, 30 * 1000));
+	// await new Promise(resolve => setTimeout(resolve, 25 * 1000));
 
 	console.info("launching browser");
 
