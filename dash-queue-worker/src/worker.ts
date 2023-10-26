@@ -87,8 +87,9 @@ export default {
 						}
 					} as MessageSendRequest<CrawleMessage>)
 				}
-				await env.QUEUE.sendBatch(items)
-
+				if (items.length !== 0) {
+					await env.QUEUE.sendBatch(items)
+				}
 				console.log(`(type=list)success enqueue: url=${msg.body.url}`)
 				msg.ack()
 			} else if (msg.body.type === "item") {
