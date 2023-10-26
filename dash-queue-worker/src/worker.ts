@@ -94,7 +94,8 @@ export default {
 							id: p.id,
 							type: "item",
 							url: itemURL,
-						}
+						},
+						contentType: "json"
 					} as MessageSendRequest<CrawleMessage>)
 				}
 				if (items.length !== 0) {
