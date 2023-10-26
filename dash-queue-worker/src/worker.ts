@@ -88,6 +88,7 @@ export default {
 					} as MessageSendRequest<CrawleMessage>)
 				}
 				if (items.length !== 0) {
+					console.log(`send batch: ${items.length} items`)
 					await env.QUEUE.sendBatch(items)
 				}
 				console.log(`(type=list)success enqueue: url=${msg.body.url}`)
