@@ -76,8 +76,18 @@ export default {
 				}
 				console.log(`(type=list)success save: url=${msg.body.url}`)
 
+				const idsResp = await insertResp.json() as { id: number }[]
+				const savedIDs = idsResp.reduce<Record<number, {}>>((acc, cur) => {
+					acc[cur.id] = {}
+					return acc
+				}, {})
+
 				const items: MessageSendRequest<CrawleMessage>[] = []
 				for (const p of ps) {
+					if (!savedIDs[p.id]) {
+						// already saved
+						continue
+					}
 					const itemURL = env.BASE_URL + p.handle
 					items.push({
 						body: {
