@@ -26,3 +26,4 @@ max_batch_timeout = 60
 max_concurrency = 1
 max_retries = 3
 max_batch_size = 1
+dead_letter_queue = "crawler-queue-dlq"
