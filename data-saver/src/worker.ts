@@ -154,20 +154,30 @@ app.put('/products', async (c) => {
 })
 
 app.post('/products', async (c) => {
+	console.info("post /products")
 	const limit: Itemliimit = await c.req.json()
 
-	const db = drizzle(c.env.DB);
-	const result = await db.
-		update(products)
-		.set({
-			start: strToDate(limit.startDate),
-			end: strToDate(limit.endDate),
-		})
-		.where(eq(products.id, limit.id))
-		.execute()
-	// .returning();
+	console.info("limit:", limit)
 
-	return c.json(result.meta)
+	const db = drizzle(c.env.DB);
+
+	try {
+		const result = await db.
+			update(products)
+			.set({
+				start: strToDate(limit.startDate),
+				end: strToDate(limit.endDate),
+			})
+			.where(eq(products.id, limit.id))
+			.execute()
+		// .returning();
+
+		console.info("result:", result.meta)
+		return c.json(result.meta)
+	} catch (e) {
+		console.error(e)
+		throw e
+	}
 })
 
 function strToDate(date: string | null) {
