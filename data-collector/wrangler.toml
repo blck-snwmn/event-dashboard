@@ -3,6 +3,7 @@ main = "src/worker.ts"
 compatibility_date = "2023-10-14"
 
 compatibility_flags = [ "nodejs_compat" ]
+logpush = true
 workers_dev = false
 
 browser = { binding = "BROWSER", type = "browser" }

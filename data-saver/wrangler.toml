@@ -2,6 +2,7 @@ name = "dash-data-saver"
 main = "src/worker.ts"
 compatibility_date = "2023-10-14"
 
+logpush = true
 workers_dev = false
 
 [[d1_databases]]
