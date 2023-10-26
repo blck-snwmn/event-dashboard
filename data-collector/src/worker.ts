@@ -28,10 +28,16 @@ app.use("*", async (c, next) => {
 
 	console.log("robots.txt allows crawling");
 
+	console.info("waiting for browser to launch");
+
+	await new Promise(resolve => setTimeout(resolve, 30 * 1000));
+
+	console.info("launching browser");
+
 	let browser: puppeteer.Browser | null = null
 	try {
 		browser = await puppeteer.launch(c.env.BROWSER);
-		console.log("browser launched");
+		console.info("browser launched");
 		c.set('browser', browser)
 	} catch (e) {
 		console.error(e);
