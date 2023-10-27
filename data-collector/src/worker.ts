@@ -83,7 +83,7 @@ app.post('/item', async (c) => {
 	await page.goto(url);
 
 	// Extract the sale period using the specified selector
-	const salePeriodText = await page.$eval(c.env.SELECTOR, element => element.textContent);
+	const salePeriodText: string = await page.$eval(c.env.SELECTOR, element => element.textContent);
 
 	// Extract the start and (if available) end dates from the sale period text
 	const periodMatch = salePeriodText.match(/(\d{4})年(\d{1,2})月(\d{1,2})日 (\d{1,2})時(\d{1,2})分(?: ～ (\d{4})年(\d{1,2})月(\d{1,2})日 (\d{1,2})時(\d{1,2})分)?/);
