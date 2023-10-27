@@ -117,9 +117,9 @@ function toISOString(match: string[]) {
 	return `${year.padStart(4, '0')}-${month.padStart(2, '0')}-${day.padStart(2, '0')}T${hour.padStart(2, '0')}:${minute.padStart(2, '0')}:00+09:00`;
 }
 
-function extractDates(salePeriodText: string) {
+export function extractDates(salePeriodText: string) {
 	// Extract the start and (if available) end dates from the sale period text
-	const periodMatch = salePeriodText.match(/(\d{4})年(\d{1,2})月(\d{1,2})日 (\d{1,2})時(\d{1,2})分(?: ～ (\d{4})年(\d{1,2})月(\d{1,2})日 (\d{1,2})時(\d{1,2})分)?/);
+	const periodMatch = salePeriodText.match(/(\d{4})年(\d{1,2})月(\d{1,2})日 (\d{1,2})(?:時|:)(\d{1,2})分? ～(?: ?(\d{4})年(\d{1,2})月(\d{1,2})日 (\d{1,2})(?:時|:)(\d{1,2})分?)?/);
 
 	// Convert the matched date parts to Date objects
 	const startDate = periodMatch ? new Date(toISOString(periodMatch.slice(1, 6))) : null;
