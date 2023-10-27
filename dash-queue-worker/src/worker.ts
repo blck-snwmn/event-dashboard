@@ -23,28 +23,6 @@ export interface Env {
 }
 
 export default {
-	// async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
-	// 	const { url } = await request.json() as { url: string };
-	// 	if (!url) {
-	// 		return new Response("Missing url", { status: 400 });
-	// 	}
-	// 	const reqURL = new URL(request.url);
-	// 	console.log(reqURL.origin + "/item")
-	// 	const resp = await env.COLLECTER.fetch("http://localhost:8787/item", {
-	// 		method: "POST",
-	// 		body: JSON.stringify({ url }),
-	// 	})
-	// 	if (resp.status !== 200) {
-	// 		return resp
-	// 	}
-	// 	const l = await resp.json() as Limit
-	// 	const resp2 = await env.SAVER.fetch("http://localhost:8787/products", {
-	// 		method: "PUT",
-	// 		body: JSON.stringify({ url, ...l }),
-	// 	})
-	// 	return new Response(resp.body, resp)
-	// },
-
 	async scheduled(controller: ScheduledController, env: Env,): Promise<void> {
 
 	},
