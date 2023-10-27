@@ -17,6 +17,7 @@ interface ItemCrawleMessage {
 
 export interface Env {
 	BASE_URL: string;
+	LIST_URL: string;
 	COLLECTER: Fetcher;
 	SAVER: Fetcher;
 	QUEUE: Queue<CrawleMessage>;
@@ -24,7 +25,14 @@ export interface Env {
 
 export default {
 	async scheduled(controller: ScheduledController, env: Env,): Promise<void> {
-
+		console.info("scheduled.")
+		await env.QUEUE.send(
+			{
+				type: "list",
+				url: env.LIST_URL,
+			},
+		)
+		console.info("scheduled done. sent list message")
 	},
 
 	async queue(batch: MessageBatch<CrawleMessage>, env: Env, ctx: ExecutionContext): Promise<void> {
