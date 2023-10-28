@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "37341f16-9646-4011-b65f-71b44eab0349",
+  "id": "a0c0a535-e002-43b4-b554-d7d13c996acd",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "products": {
@@ -32,7 +32,7 @@
           "name": "vendor",
           "type": "text",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "start": {

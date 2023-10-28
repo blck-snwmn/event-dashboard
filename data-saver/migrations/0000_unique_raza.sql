@@ -2,7 +2,7 @@ CREATE TABLE `products` (
 	`id` integer PRIMARY KEY NOT NULL,
 	`title` text NOT NULL,
 	`handle` text NOT NULL,
-	`vendor` text,
+	`vendor` text NOT NULL,
 	`start` integer,
 	`end` integer
 );

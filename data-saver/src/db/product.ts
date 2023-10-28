@@ -5,7 +5,7 @@ export const products = sqliteTable('products', {
     id: integer("id").primaryKey(),
     title: text("title").notNull(),
     handle: text("handle").notNull(),
-    vendor: text("vendor"),
+    vendor: text("vendor").notNull(),
     start: integer("start", { mode: "timestamp_ms" }),
     end: integer("end", { mode: "timestamp_ms" }),
 }, (t) => ({

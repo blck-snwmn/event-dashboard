@@ -8,5 +8,5 @@ workers_dev = false
 [[d1_databases]]
 binding = "DB" # i.e. available in your Worker on env.DB
 database_name = "event-products"
-database_id = "4f018058-73bb-4e3c-b61b-6f34ac9e4584"
+database_id = "c19f1792-cbbb-4cf5-92f0-8a9ee0147123"
 migrations_dir = "migrations"
