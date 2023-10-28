@@ -1,6 +1,6 @@
 import { json, type LoaderFunctionArgs, type MetaFunction } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
-import { ProductWithLimit } from "dash-message/message"
+import type { ProductWithLimit } from "dash-message/message"
 
 interface Env {
   SAVER: Fetcher;
