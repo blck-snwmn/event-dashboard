@@ -42,9 +42,7 @@ app.get('/products', async (c) => {
 		.orderBy(desc(products.id))
 		.all();
 
-	type productType = typeof products.$inferSelect
-
-	rows.reduce<ProductWithLimit[]>((acc, row) => {
+	const results = rows.reduce<ProductWithLimit[]>((acc, row) => {
 		if (acc.length === 0) {
 			acc.push({
 				id: row.id,
@@ -78,7 +76,7 @@ app.get('/products', async (c) => {
 		return acc
 	}, [])
 
-	return c.json(rows)
+	return c.json(results)
 })
 
 app.put('/products', async (c) => {
