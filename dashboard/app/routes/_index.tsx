@@ -31,21 +31,25 @@ export default function Index() {
 
 function Tags(props: { ts: string[] }) {
   return (
-    <div>
-      {props.ts.map((t) => (
-        <span key={t}>{t}</span>
-      ))}
+    <div className="table-cell overflow-y-auto">
+      <div className="h-0">
+        {props.ts.map((t) => (
+          <div key={t}>{t}</div>
+        ))}
+      </div>
     </div>
   );
 }
 
 function Product(props: { p: ProductWithLimit }) {
   return (
-    <div>
-      <h2>{props.p.id}</h2>
-      <p>{props.p.title}</p>
-      <p>{props.p.vendor}</p>
-      <p>{props.p.handle}</p>
+    <div className="table-row">
+      {/* <div className="table-cell">{props.p.id}</div> */}
+      <div className="table-cell">{props.p.title}</div>
+      <div className="table-cell">{props.p.vendor}</div>
+      {/* <div className="table-cell">{props.p.handle}</div> */}
+      <div className="table-cell">{props.p.startDate}</div>
+      <div className="table-cell">{props.p.endDate}</div>
       <Tags ts={props.p.tags} />
     </div>
   );
@@ -53,10 +57,23 @@ function Product(props: { p: ProductWithLimit }) {
 
 function Products(props: { products: ProductWithLimit[] }) {
   return (
-    <div>
-      {props.products.map((p) => (
-        <Product key={p.id} p={p} />
-      ))}
+    <div className="table w-full relative">
+      <div className="sticky top-0 bg-cyan-300 table-header-group">
+        <div className="table-row">
+          {/* <div className="table-cell text-left">ID</div> */}
+          <div className="table-cell text-left">Title</div>
+          <div className="table-cell text-left">Vendor</div>
+          {/* <div className="table-cell text-left">Handle</div> */}
+          <div className="table-cell text-left">Start</div>
+          <div className="table-cell text-left">End</div>
+          <div className="table-cell text-left">Tag</div>
+        </div>
+      </div>
+      <div className="table-row-group">
+        {props.products.map((p) => (
+          <Product key={p.id} p={p} />
+        ))}
+      </div>
     </div>
   );
 }
