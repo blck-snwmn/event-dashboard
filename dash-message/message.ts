@@ -14,3 +14,5 @@ export interface Limit {
 export type Itemliimit = {
     id: number;
 } & Limit;
+
+export type ProductWithLimit = Product & Limit;
