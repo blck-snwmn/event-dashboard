@@ -1,9 +1,13 @@
 name = "remix-cloudflare-workers"
 
-workers_dev = true
+# workers_dev = true
 main = "./build/index.js"
 # https://developers.cloudflare.com/workers/platform/compatibility-dates
-compatibility_date = "2023-04-20"
+compatibility_date = "2023-10-21"
+
+services = [
+  { binding = "SAVER", service = "dash-data-saver"}
+]
 
 [site]
   bucket = "./public"

@@ -1,4 +1,10 @@
-import type { MetaFunction } from "@remix-run/cloudflare";
+import { json, type LoaderFunctionArgs, type MetaFunction } from "@remix-run/cloudflare";
+import { useLoaderData } from "@remix-run/react";
+import { ProductWithLimit } from "dash-message/message"
+
+interface Env {
+  SAVER: Fetcher;
+}
 
 export const meta: MetaFunction = () => {
   return [
@@ -7,35 +13,55 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+export const loader = async ({ context, params }: LoaderFunctionArgs) => {
+  const env = context.env as Env;
+  console.log("saver", env.SAVER);
+  const resp = await env.SAVER.fetch("http://localhost:8787/products")
+  const j = await resp.json() as ProductWithLimit[];
+  return json(j);
+};
+
 export default function Index() {
+  const results = useLoaderData<typeof loader>();
+  // console.log("results", results);
+  results.forEach((r) => {
+    console.log("r", r.tags);
+  })
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-      <h1>Welcome to Remix</h1>
-      <ul>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/blog"
-            rel="noreferrer"
-          >
-            15m Quickstart Blog Tutorial
-          </a>
-        </li>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/jokes"
-            rel="noreferrer"
-          >
-            Deep Dive Jokes App Tutorial
-          </a>
-        </li>
-        <li>
-          <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
-            Remix Docs
-          </a>
-        </li>
-      </ul>
+      <Products products={results} />
+    </div>
+  );
+}
+
+function Tags(props: { ts: string[] }) {
+  return (
+    <div>
+      {props.ts.map((t) => (
+        <span key={t}>{t}</span>
+      ))}
+    </div>
+  );
+}
+
+function Product(props: { p: ProductWithLimit }) {
+  return (
+    <div>
+      <h2>{props.p.id}</h2>
+      <p>{props.p.title}</p>
+      <p>{props.p.vendor}</p>
+      <p>{props.p.handle}</p>
+      <Tags ts={props.p.tags} />
+    </div>
+  );
+}
+
+function Products(props: { products: ProductWithLimit[] }) {
+  return (
+    <div>
+      {props.products.map((p) => (
+        <Product key={p.id} p={p} />
+      ))}
     </div>
   );
 }
