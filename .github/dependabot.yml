@@ -1,7 +1,7 @@
 version: 2
 updates:
   - package-ecosystem: "npm"
-    directory: "/collect-worker"
+    directory: "/"
     schedule:
       interval: "monthly"
     groups:
