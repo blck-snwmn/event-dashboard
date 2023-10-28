@@ -31,7 +31,7 @@ export default function Index() {
 
 function Tags(props: { ts: string[] }) {
   return (
-    <div className="table-cell overflow-y-auto">
+    <div className="table-cell p-1 border border-slate-300 overflow-y-auto">
       <div className="h-0">
         {props.ts.map((t) => (
           <div key={t}>{t}</div>
@@ -42,31 +42,40 @@ function Tags(props: { ts: string[] }) {
 }
 
 function Product(props: { p: ProductWithLimit }) {
+  const values = [
+    props.p.title,
+    props.p.vendor,
+    props.p.startDate,
+    props.p.endDate,
+  ];
+
   return (
-    <div className="table-row">
-      {/* <div className="table-cell">{props.p.id}</div> */}
-      <div className="table-cell">{props.p.title}</div>
-      <div className="table-cell">{props.p.vendor}</div>
-      {/* <div className="table-cell">{props.p.handle}</div> */}
-      <div className="table-cell">{props.p.startDate}</div>
-      <div className="table-cell">{props.p.endDate}</div>
+    <div className="table-row p-5">
+      {values.map((v, i) => (
+        <div key={i} className="table-cell p-1 border border-slate-300">{v}</div>
+      ))}
       <Tags ts={props.p.tags} />
     </div>
   );
 }
 
 function Products(props: { products: ProductWithLimit[] }) {
+  const headers = [
+    // "ID",
+    "Title",
+    "Vendor",
+    // "Handle",
+    "Start",
+    "End",
+    "Tag",
+  ];
   return (
-    <div className="table w-full relative">
-      <div className="sticky top-0 bg-cyan-300 table-header-group">
+    <div className="table w-full relative border-collapse">
+      <div className="sticky top-0 bg-cyan-200 table-header-group">
         <div className="table-row">
-          {/* <div className="table-cell text-left">ID</div> */}
-          <div className="table-cell text-left">Title</div>
-          <div className="table-cell text-left">Vendor</div>
-          {/* <div className="table-cell text-left">Handle</div> */}
-          <div className="table-cell text-left">Start</div>
-          <div className="table-cell text-left">End</div>
-          <div className="table-cell text-left">Tag</div>
+          {headers.map((h, i) => (
+            <div key={i} className="table-cell p-1 text-left border border-slate-300">{h}</div>
+          ))}
         </div>
       </div>
       <div className="table-row-group">
