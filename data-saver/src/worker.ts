@@ -2,8 +2,8 @@ import { Hono } from 'hono'
 import { drizzle } from 'drizzle-orm/d1'
 import { products, productsToTags, tags } from './db/product';
 import * as schema from './db/product';
-import { Product, Itemliimit } from "dash-message/message"
-import { eq, inArray } from 'drizzle-orm';
+import { Product, Itemliimit, ProductWithLimit } from "dash-message/message"
+import { desc, eq, inArray } from 'drizzle-orm';
 
 type Bindings = {
 	DB: D1Database;
@@ -38,31 +38,47 @@ app.get('/products', async (c) => {
 		})
 		.from(products)
 		.leftJoin(productsToTags, eq(products.id, productsToTags.productId))
-		.leftJoin(tags, eq(productsToTags.tagId, tags.id)).all();
+		.leftJoin(tags, eq(productsToTags.tagId, tags.id))
+		.orderBy(desc(products.id))
+		.all();
 
 	type productType = typeof products.$inferSelect
 
-	const results = rows.reduce<Record<number, { product: productType; tags: string[] }>>((acc, row) => {
+	rows.reduce<ProductWithLimit[]>((acc, row) => {
+		if (acc.length === 0) {
+			acc.push({
+				id: row.id,
+				title: row.title,
+				handle: row.handle,
+				vendor: row.vendor,
+				tags: row.tagName ? [row.tagName] : [],
+				startDate: row.start ? new Date(row.start).toISOString() : null,
+				endDate: row.end ? new Date(row.end).toISOString() : null,
+			})
+			return acc
+		}
 
-		if (!acc[row.id]) {
-			acc[row.id] = {
-				product: {
-					id: row.id,
-					title: row.title,
-					handle: row.handle,
-					vendor: row.vendor,
-					start: row.start,
-					end: row.end,
-				}, tags: []
+		const last = acc[acc.length - 1]
+		if (last.id === row.id) {
+			if (row.tagName) {
+				last.tags.push(row.tagName)
 			}
-		}
-		if (row.tagName) {
-			acc[row.id].tags.push(row.tagName)
+			return acc
 		}
 
+		acc.push({
+			id: row.id,
+			title: row.title,
+			handle: row.handle,
+			vendor: row.vendor,
+			tags: row.tagName ? [row.tagName] : [],
+			startDate: row.start ? new Date(row.start).toISOString() : null,
+			endDate: row.end ? new Date(row.end).toISOString() : null,
+		})
 		return acc
-	}, {})
-	return c.json(results)
+	}, [])
+
+	return c.json(rows)
 })
 
 app.put('/products', async (c) => {
