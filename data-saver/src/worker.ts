@@ -43,21 +43,8 @@ app.get('/products', async (c) => {
 		.all();
 
 	const results = rows.reduce<ProductWithLimit[]>((acc, row) => {
-		if (acc.length === 0) {
-			acc.push({
-				id: row.id,
-				title: row.title,
-				handle: row.handle,
-				vendor: row.vendor,
-				tags: row.tagName ? [row.tagName] : [],
-				startDate: row.start ? new Date(row.start).toISOString() : null,
-				endDate: row.end ? new Date(row.end).toISOString() : null,
-			})
-			return acc
-		}
-
-		const last = acc[acc.length - 1]
-		if (last.id === row.id) {
+		const last = acc.length > 0 ? acc[acc.length - 1] : null
+		if (last && last.id === row.id) {
 			if (row.tagName) {
 				last.tags.push(row.tagName)
 			}
