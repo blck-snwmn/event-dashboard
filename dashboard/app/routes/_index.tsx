@@ -8,14 +8,13 @@ interface Env {
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    { title: "Dashboard" },
+    { name: "description", content: "dashboard" },
   ];
 };
 
 export const loader = async ({ context, params }: LoaderFunctionArgs) => {
   const env = context.env as Env;
-  console.log("saver", env.SAVER);
   const resp = await env.SAVER.fetch("http://localhost:8787/products")
   const j = await resp.json() as ProductWithLimit[];
   return json(j);
@@ -23,10 +22,6 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
 
 export default function Index() {
   const results = useLoaderData<typeof loader>();
-  // console.log("results", results);
-  results.forEach((r) => {
-    console.log("r", r.tags);
-  })
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
       <Products products={results} />
