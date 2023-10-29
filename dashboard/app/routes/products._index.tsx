@@ -43,8 +43,10 @@ function Tags(props: { ts: string[] }) {
 
 function Product(props: { p: ProductWithLimit }) {
   const values = [
+    props.p.id,
     props.p.title,
     props.p.vendor,
+    props.p.handle,
     props.p.startDate,
     props.p.endDate,
   ];
@@ -61,10 +63,10 @@ function Product(props: { p: ProductWithLimit }) {
 
 function Products(props: { products: ProductWithLimit[] }) {
   const headers = [
-    // "ID",
+    "ID",
     "Title",
     "Vendor",
-    // "Handle",
+    "Handle",
     "Start",
     "End",
     "Tag",
