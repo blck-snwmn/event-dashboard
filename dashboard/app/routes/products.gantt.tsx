@@ -43,11 +43,12 @@ const sampleData: ProductData[] = [
 const productNameWidth = "100px"; // 商品名のセルの幅を定義
 const cellHeight = "30px";
 const cellWidth = "40px";
+const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
 
 const GanttChart: React.FC = () => {
     const today = new Date();
     const chartStartDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 10);
-    const chartEndDate = new Date(chartStartDate.getTime() + (45 * 24 * 60 * 60 * 1000));
+    const chartEndDate = new Date(chartStartDate.getTime() + (45 * ONE_DAY_IN_MS));
 
     // 表示期間内の日付を取得
     const dateHeaders: Date[] = [];
@@ -102,8 +103,8 @@ const GanttRow: React.FC<GanttRowProps> = ({ data, chartStartDate, chartEndDate 
     const startDate = new Date(data.startDate);
     const endDate = new Date(data.endDate);
 
-    let startOffset = (startDate.getTime() - chartStartDate.getTime()) / (24 * 60 * 60 * 1000);
-    let endOffset = (endDate.getTime() - chartStartDate.getTime()) / (24 * 60 * 60 * 1000);
+    let startOffset = (startDate.getTime() - chartStartDate.getTime()) / ONE_DAY_IN_MS;
+    let endOffset = (endDate.getTime() - chartStartDate.getTime()) / ONE_DAY_IN_MS;
 
     // adjust offset If the start date is outside the display range.
     if (startOffset < 0) {
@@ -111,7 +112,7 @@ const GanttRow: React.FC<GanttRowProps> = ({ data, chartStartDate, chartEndDate 
     }
 
     // adjust offset If the end date is outside the display range.
-    const maxOffset = (chartEndDate.getTime() - chartStartDate.getTime()) / (24 * 60 * 60 * 1000);
+    const maxOffset = (chartEndDate.getTime() - chartStartDate.getTime()) / ONE_DAY_IN_MS;
     if (endOffset > maxOffset) {
         endOffset = maxOffset;
     }
@@ -129,8 +130,8 @@ const GanttRow: React.FC<GanttRowProps> = ({ data, chartStartDate, chartEndDate 
                     style={{ left: `${barPosition}px`, width: `${barWidth}px`, height: `${barHeight}px` }}
                     className="absolute bg-blue-500 bottom-0"
                 ></div>
-                {Array.from({ length: (chartEndDate.getTime() - chartStartDate.getTime()) / (24 * 60 * 60 * 1000) + 1 }).map((_, idx) => (
-                    <div key={idx} style={{ width: cellWidth }} className={`border-r border-b h-full ${isToday(new Date(chartStartDate.getTime() + idx * (24 * 60 * 60 * 1000))) ? "bg-yellow-200" : ""}`}></div>
+                {Array.from({ length: (chartEndDate.getTime() - chartStartDate.getTime()) / ONE_DAY_IN_MS + 1 }).map((_, idx) => (
+                    <div key={idx} style={{ width: cellWidth }} className={`border-r border-b h-full ${isToday(new Date(chartStartDate.getTime() + idx * ONE_DAY_IN_MS)) ? "bg-yellow-200" : ""}`}></div>
                 ))}
             </div>
         </div>
