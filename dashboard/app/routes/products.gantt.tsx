@@ -123,7 +123,6 @@ const GanttRow: React.FC<GanttRowProps> = ({ data, chartStartDate, chartEndDate 
     if (!data.startDate) {
         return (
             <div className="flex items-end" style={{ height: cellHeight }}>
-                <span style={{ width: productNameWidth, height: cellHeight }} className="border-r border-b border-gray-400">{data.name}</span>
                 <div className="flex relative" style={{ height: cellHeight }}>
                     {Array.from({ length: (chartEndDate.getTime() - chartStartDate.getTime()) / (24 * 60 * 60 * 1000) + 1 }).map((_, idx) => (
                         <div key={idx} style={{ width: cellWidth }} className="border-r border-b h-full"></div>
