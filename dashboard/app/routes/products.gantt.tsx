@@ -21,31 +21,28 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
 };
 
 export default function Index() {
-    // const results = useLoaderData<typeof loader>();
+    const results = useLoaderData<typeof loader>();
     return (
-        <GanttChart />
+        <GanttChart data={results.map((p) => ({
+            name: p.title,
+            startDate: p.startDate,
+            endDate: p.endDate,
+        }))} />
     );
 }
 
 type ProductData = {
     name: string;
-    startDate: string;
-    endDate: string;
+    startDate: string | null;
+    endDate: string | null;
 };
-
-const sampleData: ProductData[] = [
-    { name: "商品A", startDate: "2023-10-01", endDate: "2023-11-30" },
-    { name: "商品B", startDate: "2023-10-20", endDate: "2023-10-25" },
-    { name: "商品C", startDate: "2023-10-20", endDate: "2023-12-10" },
-    // ... その他のデータ
-];
 
 const productNameWidth = "100px"; // 商品名のセルの幅を定義
 const cellHeight = "30px";
 const cellWidth = "40px";
 const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
 
-const GanttChart: React.FC = () => {
+const GanttChart: React.FC<{ data: ProductData[] }> = ({ data }: { data: ProductData[] }) => {
     const today = new Date();
     const chartStartDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 10);
     const chartEndDate = new Date(chartStartDate.getTime() + (45 * ONE_DAY_IN_MS));
@@ -72,7 +69,7 @@ const GanttChart: React.FC = () => {
             <div className="flex flex-col items-center justify-start border-r border-gray-400 sticky left-0 z-10">
                 <div style={{ width: productNameWidth, height: cellHeight }} className="text-center font-bold bg-gray-300"></div> {/* ヘッダーの空白部分 */}
                 <div style={{ width: productNameWidth, height: cellHeight }} className="text-center font-bold border-b bg-gray-300">商品</div>
-                {sampleData.map((item, index) => (
+                {data.map((item, index) => (
                     <span key={index} style={{ width: productNameWidth, height: cellHeight }} className="border-b">{item.name}</span>
                 ))}
             </div>
@@ -107,7 +104,7 @@ const GanttChart: React.FC = () => {
                     </div>
 
                     {/* ガントチャートの行 */}
-                    {sampleData.map((item, index) => (
+                    {data.map((item, index) => (
                         <GanttRow key={index} data={item} chartStartDate={chartStartDate} chartEndDate={chartEndDate} />
                     ))}
                 </div>
@@ -123,8 +120,21 @@ type GanttRowProps = {
 };
 
 const GanttRow: React.FC<GanttRowProps> = ({ data, chartStartDate, chartEndDate }) => {
+    if (!data.startDate) {
+        return (
+            <div className="flex items-end" style={{ height: cellHeight }}>
+                <span style={{ width: productNameWidth, height: cellHeight }} className="border-r border-b border-gray-400">{data.name}</span>
+                <div className="flex relative" style={{ height: cellHeight }}>
+                    {Array.from({ length: (chartEndDate.getTime() - chartStartDate.getTime()) / (24 * 60 * 60 * 1000) + 1 }).map((_, idx) => (
+                        <div key={idx} style={{ width: cellWidth }} className="border-r border-b h-full"></div>
+                    ))}
+                </div>
+            </div>
+        );
+    }
+
     const startDate = new Date(data.startDate);
-    const endDate = new Date(data.endDate);
+    const endDate = data.endDate ? new Date(data.endDate) : chartEndDate;
 
     let startOffset = (startDate.getTime() - chartStartDate.getTime()) / ONE_DAY_IN_MS;
     let endOffset = (endDate.getTime() - chartStartDate.getTime()) / ONE_DAY_IN_MS;
