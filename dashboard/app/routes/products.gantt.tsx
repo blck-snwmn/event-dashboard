@@ -95,7 +95,7 @@ const GanttRow: React.FC<GanttRowProps> = ({ data, chartStartDate, chartEndDate 
     return (
         <div className="flex items-end" style={{ height: cellHeight }}>
             <span style={{ width: cellWidth, height: cellHeight }} className="border-r">{data.name}</span>
-            <div className="flex relative w-full" style={{ height: cellHeight }}>
+            <div className="flex relative" style={{ height: cellHeight }}>
                 <div
                     style={{ left: `${barPosition}px`, width: `${barWidth}px`, height: `${barHeight}px` }}
                     className="absolute bg-blue-500 bottom-0"
