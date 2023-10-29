@@ -68,20 +68,20 @@ const GanttChart: React.FC = () => {
     return (
         <div className="overflow-auto">
             <div className="flex">
-                <div style={{ width: productNameWidth }} className="text-center font-bold border-r border-gray-400"></div> {/* 商品名の部分は空白 */}
+                <div style={{ width: productNameWidth }} className="text-center font-bold border-r border-b border-gray-400"></div> {/* 商品名の部分は空白 */}
                 <div className="flex">
                     {monthHeaders.map((header, index) => (
-                        <div key={index} style={{ width: `${parseFloat(cellWidth) * header.days}px`, height: cellHeight }} className="text-center font-bold border-r">
+                        <div key={index} style={{ width: `${parseFloat(cellWidth) * header.days}px`, height: cellHeight }} className="text-center font-bold border-r border-b">
                             {header.year}年{header.month + 1}月
                         </div>
                     ))}
                 </div>
             </div>
             <div className="flex">
-                <div style={{ width: productNameWidth, height: cellHeight }} className="text-center font-bold border-r border-gray-400">商品</div>
+                <div style={{ width: productNameWidth, height: cellHeight }} className="text-center font-bold border-r border-b border-gray-400">商品</div>
                 <div className="flex">
                     {dateHeaders.map((date, index) => (
-                        <div key={index} style={{ width: cellWidth, height: cellHeight }} className="text-center border-r">{date.getDate()}</div>
+                        <div key={index} style={{ width: cellWidth, height: cellHeight }} className="text-center border-r border-b">{date.getDate()}</div>
                     ))}
                 </div>
             </div>
@@ -127,14 +127,14 @@ const GanttRow: React.FC<GanttRowProps> = ({ data, chartStartDate, chartEndDate 
 
     return (
         <div className="flex items-end" style={{ height: cellHeight }}>
-            <span style={{ width: productNameWidth, height: cellHeight }} className="border-r border-gray-400">{data.name}</span>
+            <span style={{ width: productNameWidth, height: cellHeight }} className="border-r border-b border-gray-400">{data.name}</span>
             <div className="flex relative" style={{ height: cellHeight }}>
                 <div
                     style={{ left: `${barPosition}px`, width: `${barWidth}px`, height: `${barHeight}px` }}
                     className="absolute bg-blue-500 bottom-0"
                 ></div>
                 {Array.from({ length: (chartEndDate.getTime() - chartStartDate.getTime()) / (24 * 60 * 60 * 1000) + 1 }).map((_, idx) => (
-                    <div key={idx} style={{ width: cellWidth }} className="border-r h-full"></div>
+                    <div key={idx} style={{ width: cellWidth }} className="border-r border-b h-full"></div>
                 ))}
             </div>
         </div>
