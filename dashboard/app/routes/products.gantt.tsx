@@ -88,10 +88,6 @@ const GanttChart: React.FC = () => {
             {sampleData.map((item, index) => (
                 <GanttRow key={index} data={item} chartStartDate={chartStartDate} chartEndDate={chartEndDate} />
             ))}
-            {/* Empty rows for grid */}
-            {Array.from({ length: dateHeaders.length }).map((_, idx) => (
-                <EmptyRow key={idx} dateHeaders={dateHeaders} />
-            ))}
         </div>
     );
 };
@@ -140,20 +136,6 @@ const GanttRow: React.FC<GanttRowProps> = ({ data, chartStartDate, chartEndDate 
         </div>
     );
 };
-type EmptyRowProps = {
-    dateHeaders: Date[];
-};
-
-const EmptyRow: React.FC<EmptyRowProps> = ({ dateHeaders }) => (
-    <div className="flex items-center" style={{ height: cellHeight }}>
-        <div style={{ width: productNameWidth }} className="border-r"></div>
-        <div className="flex w-full">
-            {dateHeaders.map((_, idx) => (
-                <div key={idx} style={{ width: cellWidth }} className="border-r h-full"></div>
-            ))}
-        </div>
-    </div>
-);
 
 const isToday = (date: Date) => {
     const today = new Date();
