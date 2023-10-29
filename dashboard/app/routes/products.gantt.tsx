@@ -34,12 +34,13 @@ type ProductData = {
 };
 
 const sampleData: ProductData[] = [
-    { name: "商品A", startDate: "2023-10-01", endDate: "2023-11-31" },
+    { name: "商品A", startDate: "2023-10-01", endDate: "2023-11-30" },
     { name: "商品B", startDate: "2023-10-20", endDate: "2023-10-25" },
+    { name: "商品C", startDate: "2023-10-20", endDate: "2023-12-10" },
     // ... その他のデータ
 ];
 
-
+const productNameWidth = "100px"; // 商品名のセルの幅を定義
 const cellHeight = "30px";
 const cellWidth = "40px";
 
@@ -57,7 +58,7 @@ const GanttChart: React.FC = () => {
     return (
         <div className="overflow-auto">
             <div className="flex">
-                <div style={{ width: cellWidth, height: cellHeight }} className="text-center font-bold border-r">商品</div>
+                <div style={{ width: productNameWidth, height: cellHeight }} className="text-center font-bold border-r">商品</div>
                 <div className="flex">
                     {dateHeaders.map((date, index) => (
                         <div key={index} style={{ width: cellWidth, height: cellHeight }} className="text-center border-r">{date.getDate()}</div>
@@ -94,7 +95,7 @@ const GanttRow: React.FC<GanttRowProps> = ({ data, chartStartDate, chartEndDate 
 
     return (
         <div className="flex items-end" style={{ height: cellHeight }}>
-            <span style={{ width: cellWidth, height: cellHeight }} className="border-r">{data.name}</span>
+            <span style={{ width: productNameWidth, height: cellHeight }} className="border-r">{data.name}</span>
             <div className="flex relative" style={{ height: cellHeight }}>
                 <div
                     style={{ left: `${barPosition}px`, width: `${barWidth}px`, height: `${barHeight}px` }}
@@ -113,7 +114,7 @@ type EmptyRowProps = {
 
 const EmptyRow: React.FC<EmptyRowProps> = ({ dateHeaders }) => (
     <div className="flex items-center" style={{ height: cellHeight }}>
-        <div style={{ width: cellWidth }} className="border-r"></div>
+        <div style={{ width: productNameWidth }} className="border-r"></div>
         <div className="flex w-full">
             {dateHeaders.map((_, idx) => (
                 <div key={idx} style={{ width: cellWidth }} className="border-r h-full"></div>
