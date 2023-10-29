@@ -71,7 +71,7 @@ const GanttChart: React.FC = () => {
                 <div style={{ width: productNameWidth }} className="text-center font-bold border-r border-b border-gray-400"></div> {/* 商品名の部分は空白 */}
                 <div className="flex">
                     {monthHeaders.map((header, index) => (
-                        <div key={index} style={{ width: `${parseFloat(cellWidth) * header.days}px`, height: cellHeight }} className="text-center font-bold border-r border-b">
+                        <div key={index} style={{ width: `${parseFloat(cellWidth) * header.days}px`, height: cellHeight }} className="text-center font-bold border-r border-b bg-gray-300">
                             {header.year}年{header.month + 1}月
                         </div>
                     ))}
@@ -81,7 +81,7 @@ const GanttChart: React.FC = () => {
                 <div style={{ width: productNameWidth, height: cellHeight }} className="text-center font-bold border-r border-b border-gray-400">商品</div>
                 <div className="flex">
                     {dateHeaders.map((date, index) => (
-                        <div key={index} style={{ width: cellWidth, height: cellHeight }} className="text-center border-r border-b">{date.getDate()}</div>
+                        <div key={index} style={{ width: cellWidth, height: cellHeight }} className={`text-center border-r border-b ${isToday(date) ? "bg-yellow-200" : "bg-gray-300"}`}>{date.getDate()}</div>
                     ))}
                 </div>
             </div>
@@ -134,7 +134,7 @@ const GanttRow: React.FC<GanttRowProps> = ({ data, chartStartDate, chartEndDate 
                     className="absolute bg-blue-500 bottom-0"
                 ></div>
                 {Array.from({ length: (chartEndDate.getTime() - chartStartDate.getTime()) / (24 * 60 * 60 * 1000) + 1 }).map((_, idx) => (
-                    <div key={idx} style={{ width: cellWidth }} className="border-r border-b h-full"></div>
+                    <div key={idx} style={{ width: cellWidth }} className={`border-r border-b h-full ${isToday(new Date(chartStartDate.getTime() + idx * (24 * 60 * 60 * 1000))) ? "bg-yellow-200" : ""}`}></div>
                 ))}
             </div>
         </div>
@@ -154,3 +154,8 @@ const EmptyRow: React.FC<EmptyRowProps> = ({ dateHeaders }) => (
         </div>
     </div>
 );
+
+const isToday = (date: Date) => {
+    const today = new Date();
+    return today.getDate() === date.getDate() && today.getMonth() === date.getMonth() && today.getFullYear() === date.getFullYear();
+};
