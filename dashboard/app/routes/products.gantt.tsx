@@ -86,9 +86,21 @@ const GanttRow: React.FC<GanttRowProps> = ({ data, chartStartDate, chartEndDate 
     const startDate = new Date(data.startDate);
     const endDate = new Date(data.endDate);
 
-    const startOffset = (startDate.getTime() - chartStartDate.getTime()) / (24 * 60 * 60 * 1000);
-    const duration = (endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000) + 1;
+    let startOffset = (startDate.getTime() - chartStartDate.getTime()) / (24 * 60 * 60 * 1000);
+    let endOffset = (endDate.getTime() - chartStartDate.getTime()) / (24 * 60 * 60 * 1000);
 
+    // startの日付が表示範囲外にある場合の修正
+    if (startOffset < 0) {
+        startOffset = 0;
+    }
+
+    // endの日付が表示範囲外にある場合の修正
+    const maxOffset = (chartEndDate.getTime() - chartStartDate.getTime()) / (24 * 60 * 60 * 1000);
+    if (endOffset > maxOffset) {
+        endOffset = maxOffset;
+    }
+
+    const duration = (endOffset - startOffset) + 1;
     const barPosition = startOffset * parseFloat(cellWidth);
     const barWidth = duration * parseFloat(cellWidth);
     const barHeight = parseFloat(cellHeight) / 2;
