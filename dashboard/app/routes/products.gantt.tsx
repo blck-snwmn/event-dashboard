@@ -37,7 +37,7 @@ type ProductData = {
     endDate: string | null;
 };
 
-const productNameWidth = "100px"; // 商品名のセルの幅を定義
+const productNameWidth = "600px"; // 商品名のセルの幅を定義
 const cellHeight = "30px";
 const cellWidth = "40px";
 const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
