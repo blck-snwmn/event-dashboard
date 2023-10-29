@@ -55,8 +55,28 @@ const GanttChart: React.FC = () => {
         dateHeaders.push(new Date(d));
     }
 
+    const monthHeaders: { month: number, year: number, days: number }[] = [];
+    dateHeaders.forEach((date, index) => {
+        const lastItem = monthHeaders[monthHeaders.length - 1];
+        if (lastItem && lastItem.month === date.getMonth() && lastItem.year === date.getFullYear()) {
+            lastItem.days++;
+        } else {
+            monthHeaders.push({ month: date.getMonth(), year: date.getFullYear(), days: 1 });
+        }
+    });
+
     return (
         <div className="overflow-auto">
+            <div className="flex">
+                <div style={{ width: productNameWidth }} className="text-center font-bold border-r"></div> {/* 商品名の部分は空白 */}
+                <div className="flex">
+                    {monthHeaders.map((header, index) => (
+                        <div key={index} style={{ width: `${parseFloat(cellWidth) * header.days}px`, height: cellHeight }} className="text-center font-bold border-r">
+                            {header.year}年{header.month + 1}月
+                        </div>
+                    ))}
+                </div>
+            </div>
             <div className="flex">
                 <div style={{ width: productNameWidth, height: cellHeight }} className="text-center font-bold border-r">商品</div>
                 <div className="flex">
