@@ -12,6 +12,10 @@ describe('extractDates', () => {
             startDate: new Date('2023-10-25T18:00:00+09:00'),
             endDate: null,
         })
+        expect(extractDates("2022年12月14日 18時00分 ~")).toEqual({
+            startDate: new Date('2022-12-14T18:00:00+09:00'),
+            endDate: null,
+        })
         expect(extractDates("2023年10月19日 12:00 ～")).toEqual({
             startDate: new Date('2023-10-19T12:00:00+09:00'),
             endDate: null,
