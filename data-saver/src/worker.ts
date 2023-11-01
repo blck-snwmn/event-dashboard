@@ -66,7 +66,7 @@ app.get('/products', async (c) => {
 	return c.json(results)
 })
 
-app.put('/products', async (c) => {
+app.post('/products', async (c) => {
 	const ps: Product[] = await c.req.json()
 	console.info(`products: ${ps.length}`)
 
@@ -154,7 +154,7 @@ app.put('/products', async (c) => {
 	return c.json(insertedId, { status: 200 })
 })
 
-app.post('/products', async (c) => {
+app.put('/products', async (c) => {
 	console.info("post /products")
 	const limit: Itemliimit = await c.req.json()
 

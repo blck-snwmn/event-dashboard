@@ -52,7 +52,7 @@ export default {
 
 				const ps = await psResp.json() as Product[]
 				const insertResp = await env.SAVER.fetch("http://localhost:8787/products", {
-					method: "PUT",
+					method: "POST",
 					body: JSON.stringify(ps),
 				})
 				if (insertResp.status !== 200) {
@@ -103,7 +103,7 @@ export default {
 
 				const l = await itemResp.json() as Limit
 				const updateResp = await env.SAVER.fetch("http://localhost:8787/products", {
-					method: "POST",
+					method: "PUT",
 					body: JSON.stringify({
 						id: msg.body.id,
 						...l
