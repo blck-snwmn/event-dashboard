@@ -133,7 +133,9 @@ const GanttRow: React.FC<GanttRowProps> = ({ data, chartStartDate, chartEndDate 
     }
 
     const startDate = new Date(data.startDate);
+    startDate.setHours(0, 0, 0, 0);
     const endDate = data.endDate ? new Date(data.endDate) : chartEndDate;
+    endDate.setHours(0, 0, 0, 0);
 
     let startOffset = (startDate.getTime() - chartStartDate.getTime()) / ONE_DAY_IN_MS;
     let endOffset = (endDate.getTime() - chartStartDate.getTime()) / ONE_DAY_IN_MS;
