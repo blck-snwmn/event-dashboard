@@ -70,7 +70,7 @@ const GanttChart: React.FC<{ data: ProductData[] }> = ({ data }: { data: Product
                 <div style={{ width: productNameWidth, height: cellHeight }} className="text-center font-bold bg-gray-300"></div> {/* ヘッダーの空白部分 */}
                 <div style={{ width: productNameWidth, height: cellHeight }} className="text-center font-bold border-b bg-gray-300">商品</div>
                 {data.map((item, index) => (
-                    <span key={index} style={{ width: productNameWidth, height: cellHeight }} className="border-b">{item.name}</span>
+                    <span key={index} style={{ width: productNameWidth, height: cellHeight }} className="border-b bg-white">{item.name}</span>
                 ))}
             </div>
 
