@@ -13,14 +13,14 @@ type Variables = {
 
 const app = new Hono<{ Bindings: Bindings, Variables: Variables }>()
 
-app.delete('/', async (c) => {
-	const db = drizzle(c.env.DB, { schema });
-	await db.delete(productsToTags).execute()
-	await db.delete(tags).execute()
-	await db.delete(products).execute()
+// app.delete('/', async (c) => {
+// 	const db = drizzle(c.env.DB, { schema });
+// 	await db.delete(productsToTags).execute()
+// 	await db.delete(tags).execute()
+// 	await db.delete(products).execute()
 
-	return c.text("ok")
-})
+// 	return c.text("ok")
+// })
 
 app.get('/products', async (c) => {
 	const db = drizzle(c.env.DB, { schema });
