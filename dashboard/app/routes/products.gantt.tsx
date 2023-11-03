@@ -75,7 +75,7 @@ const GanttChart: React.FC<{ data: ProductData[] }> = ({ data }: { data: Product
             </div>
 
             {/* ガントチャート部分 */}
-            <div className="overflow-x-auto" style={{ maxWidth: `calc(100vw - ${productNameWidth})` }}>
+            <div className="overflow-x-auto" style={{ width: `2700px` }}>
                 <div>
                     {/* 月と年のヘッダー */}
                     <div className="flex">
