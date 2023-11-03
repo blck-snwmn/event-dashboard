@@ -66,7 +66,7 @@ const GanttChart: React.FC<{ data: ProductData[] }> = ({ data }: { data: Product
     return (
         <div className="flex">
             {/* 商品名の列 */}
-            <div className="flex flex-col items-center justify-start border-r border-gray-400 sticky left-0 z-10">
+            <div className="flex flex-col items-center justify-start border-r border-gray-400 sticky  left-0 z-10">
                 <div style={{ width: productNameWidth, height: cellHeight }} className="text-center font-bold bg-gray-300"></div> {/* ヘッダーの空白部分 */}
                 <div style={{ width: productNameWidth, height: cellHeight }} className="text-center font-bold border-b bg-gray-300">商品</div>
                 {data.map((item, index) => (
