@@ -17,7 +17,7 @@ CREATE TABLE `products_to_tags` (
 
 CREATE TABLE `tags` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`name` text
+	`name` text NOT NULL
 );
 
 CREATE INDEX `period_idx` ON `products` (`start`,`end`);

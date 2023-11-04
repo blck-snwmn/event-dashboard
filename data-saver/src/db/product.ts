@@ -18,7 +18,7 @@ export const productsRelations = relations(products, ({ many }) => ({
 
 export const tags = sqliteTable('tags', {
     id: integer("id").primaryKey({ autoIncrement: true }),
-    name: text("name"),
+    name: text("name").notNull(),
 }, (t) => ({
     uniqueName: uniqueIndex("name_idx").on(t.name),
 }))
