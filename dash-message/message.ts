@@ -6,15 +6,6 @@ export interface Product {
     tags: string[];
 }
 
-export interface Tag {
-    name: string;
-}
-
-export interface TagGroup {
-    name: string;
-    tags: Tag[];
-}
-
 export interface Limit {
     startDate: string | null;
     endDate: string | null;
