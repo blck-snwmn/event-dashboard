@@ -22,6 +22,26 @@ const app = new Hono<{ Bindings: Bindings, Variables: Variables }>()
 // 	return c.text("ok")
 // })
 
+app.get('/tags', async (c) => {
+	const db = drizzle(c.env.DB, { schema });
+	const rows = await db.select().from(tags).orderBy(tags.name).all();
+
+	const tagGroups: Record<string, string[]> = {
+		Talent: [],
+		Generation: [],
+		Group: [],
+	}
+	for (const row of rows) {
+		for (const key in tagGroups) {
+			if (row.name.startsWith(key)) {
+				tagGroups[key].push(row.name.replace(key + "_", ""))
+				break
+			}
+		}
+	}
+	return c.json(tagGroups)
+})
+
 app.get('/products', async (c) => {
 	const db = drizzle(c.env.DB, { schema });
 	const rows = await db
