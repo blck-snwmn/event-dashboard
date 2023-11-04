@@ -29,17 +29,17 @@ export default function Index() {
   );
 }
 
-function Tags(props: { ts: string[] }) {
-  return (
-    <div className="table-cell p-1 border border-slate-300 overflow-y-auto">
-      <div className="h-0">
-        {props.ts.map((t) => (
-          <div key={t}>{t}</div>
-        ))}
-      </div>
-    </div>
-  );
-}
+// function Tags(props: { ts: string[] }) {
+//   return (
+//     <div className="table-cell p-1 border border-slate-300 overflow-y-auto">
+//       <div className="h-0">
+//         {props.ts.map((t) => (
+//           <div key={t}>{t}</div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// }
 
 function Product(props: { p: ProductWithLimit }) {
   const values = [
@@ -56,7 +56,7 @@ function Product(props: { p: ProductWithLimit }) {
       {values.map((v, i) => (
         <div key={i} className="table-cell p-1 border border-slate-300">{v}</div>
       ))}
-      <Tags ts={props.p.tags} />
+      {/* <Tags ts={props.p.tags} /> */}
     </div>
   );
 }
@@ -69,7 +69,7 @@ function Products(props: { products: ProductWithLimit[] }) {
     "Handle",
     "Start",
     "End",
-    "Tag",
+    // "Tag",
   ];
   return (
     <div className="table w-full relative border-collapse">
