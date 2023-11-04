@@ -134,8 +134,8 @@ app.post('/products', async (c) => {
 	console.info(`insertProductsToTags: ${insertProductsToTags.length}`)
 
 	try {
-		// Save 100 items at a time.
-		const count = 30
+		// Save 50 items at a time.
+		const count = 50
 		for (let i = 0; i < insertProductsToTags.length; i += count) {
 			const result = await db.insert(productsToTags)
 				.values(insertProductsToTags.slice(i, i + count))
