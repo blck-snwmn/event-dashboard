@@ -78,6 +78,6 @@ export default function Home() {
     );
 }
 
-export function useTagGroups() {
+export function useSelectedTags() {
     return useOutletContext<SelectedTags>();
 }

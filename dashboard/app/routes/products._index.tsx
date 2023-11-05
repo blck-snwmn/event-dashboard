@@ -1,7 +1,7 @@
 import { json, type LoaderFunctionArgs, type MetaFunction } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
 import type { ProductWithLimit } from "dash-message/message"
-import { useTagGroups } from "./products";
+import { useSelectedTags } from "./products";
 
 interface Env {
   SAVER: Fetcher;
@@ -22,12 +22,12 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
 };
 
 export default function Index() {
-  const tagGroups = useTagGroups();
+  const selected = useSelectedTags();
 
   const results = useLoaderData<typeof loader>();
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-      <Products products={results} selectedTags={tagGroups} />
+      <Products products={results} selectedTags={selected} />
     </div>
   );
 }
