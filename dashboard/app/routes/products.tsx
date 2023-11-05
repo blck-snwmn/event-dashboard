@@ -55,7 +55,7 @@ export default function Home() {
                 <nav className="flex-shrink-0 flex-grow bg-slate-400">
                 </nav>
             </div> */}
-            <div className="flex flex-col">
+            <div className="flex flex-col w-screen">
                 <div className="mb-4">
                     {Object.keys(groupedTags).map(group => (
                         <div key={group}>
