@@ -1,6 +1,7 @@
 import type { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { json } from "@remix-run/cloudflare";
 import { Outlet, useLoaderData } from "@remix-run/react";
+
 interface Env {
     SAVER: Fetcher;
 }
@@ -16,7 +17,11 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
 };
 
 export default function Home() {
-    const results = useLoaderData<typeof loader>();
+    // const results = useLoaderData<typeof loader>();
+    // const talentOptions = results["Talent"].map((t) => ({ value: t, label: t }))
+    // const generationOptions = results["Generation"].map((t) => ({ value: t, label: t }))
+    // const groupOptions = results["Group"].map((t) => ({ value: t, label: t }))
+
     /* homeの共通処理 */
     return (
         <div className="flex">
@@ -25,17 +30,20 @@ export default function Home() {
                 </nav>
             </div> */}
             <div className="flex flex-col">
-                <div className="flex flex-col whitespace-nowrap">
-                    <div className="flex flex-row flex-wrap">
-                        {results["Talent"].map((t, i) => (<div key={i}>{t}</div>))}
+                {/* <div className="flex flex-col p-5">
+                    <div>
+                        <label>Talent</label>
+                        <Select options={talentOptions} isMulti={true} />
                     </div>
-                    <div className="flex flex-row flex-wrap">
-                        {results["Generation"].map((t, i) => (<div key={i}>{t}</div>))}
+                    <div>
+                        <label>Generation</label>
+                        <Select options={generationOptions} isMulti={true} />
                     </div>
-                    <div className="flex flex-row flex-wrap">
-                        {results["Group"].map((t, i) => (<div key={i}>{t}</div>))}
+                    <div>
+                        <label>Group</label>
+                        <Select options={groupOptions} isMulti={true} />
                     </div>
-                </div>
+                </div> */}
                 {/* <div className="p-4 h-[calc(100%-80px)]"> */}
                 <Outlet />
                 {/* </div> */}
