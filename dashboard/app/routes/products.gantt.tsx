@@ -72,8 +72,8 @@ const GanttChart: React.FC<{ data: ProductData[] }> = ({ data }: { data: Product
             <div>Gantt</div>
             <div className="flex">
                 {/* 商品名の列 */}
-                <div className="flex flex-col items-center justify-start border-r border-gray-400 sticky  left-0 z-10">
-                    <div style={{ width: productNameWidth, height: cellHeight }} className="text-center font-bold bg-gray-300"></div> {/* ヘッダーの空白部分 */}
+                <div className="flex flex-col items-center justify-start border-r border-gray-400 sticky left-0 z-10">
+                    <div style={{ width: productNameWidth, height: cellHeight }} className="text-center font-bold bg-gray-300"></div>
                     <div style={{ width: productNameWidth, height: cellHeight }} className="text-center font-bold border-b bg-gray-300">商品</div>
                     {data.map((item, index) => (
                         <span key={index} style={{ width: productNameWidth, height: cellHeight }} className="border-b bg-white">{item.name}</span>
@@ -81,7 +81,7 @@ const GanttChart: React.FC<{ data: ProductData[] }> = ({ data }: { data: Product
                 </div>
 
                 {/* ガントチャート部分 */}
-                <div className="overflow-x-auto" style={{ width: `2700px` }}>
+                <div className="overflow-x-auto" style={{ width: `calc(99vw - ${productNameWidth})` }}>
                     <div>
                         {/* 月と年のヘッダー */}
                         <div className="flex">
