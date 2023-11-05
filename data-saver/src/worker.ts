@@ -123,7 +123,7 @@ app.post('/products', async (c) => {
 			.onConflictDoNothing()
 			.returning()
 
-		console.info("result:", insertedId, insertedId.length)
+		console.info("[products]result:", insertedId, insertedId.length)
 
 		// save all tags
 		const resultTags = await db.insert(tags)
@@ -131,7 +131,7 @@ app.post('/products', async (c) => {
 			.onConflictDoNothing()
 			.execute()
 
-		console.info("result:", resultTags.meta)
+		console.info("[tags]result:", resultTags.meta)
 	} catch (e) {
 		console.error(e)
 		throw e
