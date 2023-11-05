@@ -1,6 +1,7 @@
 import { json, type LoaderFunctionArgs, type MetaFunction } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
 import type { ProductWithLimit } from "dash-message/message"
+import { useSelectedTags } from "./products";
 
 interface Env {
     SAVER: Fetcher;
@@ -21,9 +22,12 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
 };
 
 export default function Index() {
+    const selected = useSelectedTags();
+
     const results = useLoaderData<typeof loader>();
+    const filteredData = results.filter((p) => p.tags.some((t) => selected.includes(t.replace("Talent_", ""))));
     return (
-        <GanttChart data={results.map((p) => ({
+        <GanttChart data={filteredData.map((p) => ({
             name: p.title,
             startDate: p.startDate,
             endDate: p.endDate,
