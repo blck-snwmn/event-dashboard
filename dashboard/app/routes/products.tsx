@@ -56,7 +56,7 @@ export default function Home() {
                 </nav>
             </div> */}
             <div className="flex flex-col">
-                <div className="mb-4 w-screen">
+                <div className="mb-4 p-4">
                     {Object.keys(groupedTags).map(group => (
                         <div key={group}>
                             <div onClick={() => handleGroupToggle(group)}>{group}</div>
