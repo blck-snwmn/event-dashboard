@@ -125,18 +125,21 @@ function Products(props: { products: ProductWithLimit[] }) {
           </div>
         ))}
       </div>
-      <div className="table w-full relative border-collapse">
-        <div className="sticky top-0 bg-cyan-200 table-header-group">
-          <div className="table-row">
-            {headers.map((h, i) => (
-              <div key={i} className="table-cell p-1 text-left border border-slate-300">{h}</div>
+      <div>
+        <div>Products</div>
+        <div className="table w-full relative border-collapse">
+          <div className="sticky top-0 bg-cyan-200 table-header-group">
+            <div className="table-row">
+              {headers.map((h, i) => (
+                <div key={i} className="table-cell p-1 text-left border border-slate-300">{h}</div>
+              ))}
+            </div>
+          </div>
+          <div className="table-row-group">
+            {filteredData.map((p) => (
+              <Product key={p.id} p={p} />
             ))}
           </div>
-        </div>
-        <div className="table-row-group">
-          {filteredData.map((p) => (
-            <Product key={p.id} p={p} />
-          ))}
         </div>
       </div>
     </>
