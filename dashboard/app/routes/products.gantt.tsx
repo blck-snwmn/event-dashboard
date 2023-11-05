@@ -68,52 +68,55 @@ const GanttChart: React.FC<{ data: ProductData[] }> = ({ data }: { data: Product
     });
 
     return (
-        <div className="flex">
-            {/* 商品名の列 */}
-            <div className="flex flex-col items-center justify-start border-r border-gray-400 sticky  left-0 z-10">
-                <div style={{ width: productNameWidth, height: cellHeight }} className="text-center font-bold bg-gray-300"></div> {/* ヘッダーの空白部分 */}
-                <div style={{ width: productNameWidth, height: cellHeight }} className="text-center font-bold border-b bg-gray-300">商品</div>
-                {data.map((item, index) => (
-                    <span key={index} style={{ width: productNameWidth, height: cellHeight }} className="border-b bg-white">{item.name}</span>
-                ))}
-            </div>
-
-            {/* ガントチャート部分 */}
-            <div className="overflow-x-auto" style={{ width: `2700px` }}>
-                <div>
-                    {/* 月と年のヘッダー */}
-                    <div className="flex">
-                        {monthHeaders.map((header, index) => (
-                            <div
-                                key={index}
-                                style={{ width: `${parseFloat(cellWidth) * header.days}px`, height: cellHeight }}
-                                className="text-center font-bold border-r border-b bg-gray-300 flex-shrink-0"
-                            >
-                                {header.year}年{header.month + 1}月
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* 日付のヘッダー */}
-                    <div className="flex">
-                        {dateHeaders.map((date, index) => (
-                            <div
-                                key={index}
-                                style={{ width: cellWidth, height: cellHeight }}
-                                className={`text-center border-r border-b ${isToday(date) ? "bg-yellow-200" : "bg-gray-300"} flex-shrink-0`}
-                            >
-                                {date.getDate()}
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* ガントチャートの行 */}
+        <>
+            <div>Gantt</div>
+            <div className="flex">
+                {/* 商品名の列 */}
+                <div className="flex flex-col items-center justify-start border-r border-gray-400 sticky  left-0 z-10">
+                    <div style={{ width: productNameWidth, height: cellHeight }} className="text-center font-bold bg-gray-300"></div> {/* ヘッダーの空白部分 */}
+                    <div style={{ width: productNameWidth, height: cellHeight }} className="text-center font-bold border-b bg-gray-300">商品</div>
                     {data.map((item, index) => (
-                        <GanttRow key={index} data={item} chartStartDate={chartStartDate} chartEndDate={chartEndDate} />
+                        <span key={index} style={{ width: productNameWidth, height: cellHeight }} className="border-b bg-white">{item.name}</span>
                     ))}
                 </div>
+
+                {/* ガントチャート部分 */}
+                <div className="overflow-x-auto" style={{ width: `2700px` }}>
+                    <div>
+                        {/* 月と年のヘッダー */}
+                        <div className="flex">
+                            {monthHeaders.map((header, index) => (
+                                <div
+                                    key={index}
+                                    style={{ width: `${parseFloat(cellWidth) * header.days}px`, height: cellHeight }}
+                                    className="text-center font-bold border-r border-b bg-gray-300 flex-shrink-0"
+                                >
+                                    {header.year}年{header.month + 1}月
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* 日付のヘッダー */}
+                        <div className="flex">
+                            {dateHeaders.map((date, index) => (
+                                <div
+                                    key={index}
+                                    style={{ width: cellWidth, height: cellHeight }}
+                                    className={`text-center border-r border-b ${isToday(date) ? "bg-yellow-200" : "bg-gray-300"} flex-shrink-0`}
+                                >
+                                    {date.getDate()}
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* ガントチャートの行 */}
+                        {data.map((item, index) => (
+                            <GanttRow key={index} data={item} chartStartDate={chartStartDate} chartEndDate={chartEndDate} />
+                        ))}
+                    </div>
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 
