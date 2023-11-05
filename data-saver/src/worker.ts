@@ -125,13 +125,18 @@ app.post('/products', async (c) => {
 
 		console.info("[products]result:", insertedId, insertedId.length)
 
-		// save all tags
-		const resultTags = await db.insert(tags)
-			.values(insertTags)
-			.onConflictDoNothing()
-			.execute()
+		// save all tags 
+		// each 50 items
+		const count = 50
+		for (let i = 0; i < insertTags.length; i += count) {
+			const resultTags = await db.insert(tags)
+				.values(insertTags.slice(i, i + count))
+				.onConflictDoNothing()
+				.execute()
 
-		console.info("[tags]result:", resultTags.meta)
+			console.info("[tags]result:", resultTags.meta)
+		}
+		console.info("[tags]result:", insertTags.length)
 	} catch (e) {
 		console.error(e)
 		throw e
