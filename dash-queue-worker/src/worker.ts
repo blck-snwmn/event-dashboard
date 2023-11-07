@@ -100,7 +100,7 @@ export default {
 						type: "section",
 						text: {
 							type: "mrkdwn",
-							text: `*${p.title}*\n${env.BASE_URL}${p.handle}}`
+							text: `*${p.title}*\n${env.BASE_URL}${p.handle}`
 						}
 					})
 				}
