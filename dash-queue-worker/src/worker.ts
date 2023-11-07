@@ -106,24 +106,22 @@ export default {
 				}
 				if (blocks.length !== 0) {
 					await env.SLACK_NOTIFIER.send({
+						type: "chat.postMessage",
 						body: {
-							type: "chat.postMessage",
-							body: {
-								channel: env.CHANNEL,
-								blocks: [
-									{
-										type: "header",
-										text: {
-											type: "plain_text",
-											text: "New Products"
-										}
-									},
-									{
-										type: "divider"
-									},
-									...blocks
-								]
-							},
+							channel: env.CHANNEL,
+							blocks: [
+								{
+									type: "header",
+									text: {
+										type: "plain_text",
+										text: "New Products"
+									}
+								},
+								{
+									type: "divider"
+								},
+								...blocks
+							]
 						},
 					})
 				}
