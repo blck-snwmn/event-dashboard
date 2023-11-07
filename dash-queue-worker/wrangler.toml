@@ -20,6 +20,10 @@ services = [
 queue = "crawler-queue"
 binding = "QUEUE"
 
+[[queues.producers]]
+queue = "slackqueue"
+binding = "SLACK_NOTIFIER"
+
 [[queues.consumers]]
 queue = "crawler-queue"
 max_batch_timeout = 60

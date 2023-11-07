@@ -13,14 +13,14 @@ interface ItemCrawleMessage {
 	url: string;
 }
 
-
-
 export interface Env {
 	BASE_URL: string;
 	LIST_URL: string;
+	CHANNEL: string;
 	COLLECTER: Fetcher;
 	SAVER: Fetcher;
 	QUEUE: Queue<CrawleMessage>;
+	SLACK_NOTIFIER: Queue;
 }
 
 export default {
@@ -89,6 +89,45 @@ export default {
 					await env.QUEUE.sendBatch(items)
 				}
 				console.log(`(type=list)success enqueue: url=${msg.body.url}`)
+
+				const blocks = []
+				for (const p of ps) {
+					if (!savedIDs[p.id]) {
+						// already saved
+						continue
+					}
+					blocks.push({
+						type: "section",
+						text: {
+							type: "mrkdwn",
+							text: `*${p.title}*\n${env.BASE_URL}${p.handle}}`
+						}
+					})
+				}
+				if (blocks.length !== 0) {
+					await env.SLACK_NOTIFIER.send({
+						body: {
+							type: "chat.postMessage",
+							body: {
+								channel: env.CHANNEL,
+								blocks: [
+									{
+										type: "header",
+										text: {
+											type: "plain_text",
+											text: "New Products"
+										}
+									},
+									{
+										type: "divider"
+									},
+									...blocks
+								]
+							},
+						},
+					})
+				}
+				console.info(`(type=list)success notify: url=${msg.body.url}`)
 				msg.ack()
 			} else if (msg.body.type === "item") {
 				const itemResp = await env.COLLECTER.fetch("http://localhost:8787/item", {
