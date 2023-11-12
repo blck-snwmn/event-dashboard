@@ -5,7 +5,10 @@ compatibility_date = "2023-10-21"
 logpush = true
 workers_dev = false
 
-tail_consumers = [{service = "slackworker"}]
+tail_consumers = [
+  {service = "slackworker"},
+  {service = "cf-tail-logger"},
+]
 
 # # Service binding - For more information: https://developers.cloudflare.com/workers/platform/services
 # [[routes]]
