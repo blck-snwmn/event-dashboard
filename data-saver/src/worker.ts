@@ -63,7 +63,7 @@ app.get('/products/endingsoon', async (c) => {
 		.leftJoin(productsToTags, eq(products.id, productsToTags.productId))
 		.leftJoin(tags, eq(productsToTags.tagId, tags.id))
 		.where(and(gte(products.end, now), lt(products.end, monthAgo)))
-		.orderBy(asc(products.end))
+		.orderBy(asc(products.end), desc(products.id))
 		.all();
 
 	const results = rows.reduce<ProductWithLimit[]>((acc, row) => {
