@@ -10,6 +10,7 @@ export const products = sqliteTable('products', {
     end: integer("end", { mode: "timestamp_ms" }),
 }, (t) => ({
     startIdx: index("period_idx").on(t.start, t.end),
+    endStartIndex: index("end_starts_idx").on(t.end, t.start),
 }))
 
 export const productsRelations = relations(products, ({ many }) => ({
