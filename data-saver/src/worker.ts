@@ -3,7 +3,7 @@ import { drizzle } from 'drizzle-orm/d1'
 import { products, productsToTags, tags } from './db/product';
 import * as schema from './db/product';
 import { Product, Itemliimit, ProductWithLimit } from "dash-message/message"
-import { desc, eq, inArray } from 'drizzle-orm';
+import { and, asc, desc, eq, gt, gte, inArray, lt } from 'drizzle-orm';
 
 type Bindings = {
 	DB: D1Database;
@@ -40,6 +40,54 @@ app.get('/tags', async (c) => {
 		}
 	}
 	return c.json(tagGroups)
+})
+
+app.get('/products/endingsoon', async (c) => {
+	const now = new Date()
+	const monthAgo = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate())
+
+	const db = drizzle(c.env.DB, { schema });
+	const rows = await db
+		.select({
+			// There is a shift in column values, possibly due to the presence of columns with the same name.
+			// To avoid this, use `select` to specify the field name.
+			id: products.id,
+			title: products.title,
+			handle: products.handle,
+			vendor: products.vendor,
+			start: products.start,
+			end: products.end,
+			tagName: tags.name
+		})
+		.from(products)
+		.leftJoin(productsToTags, eq(products.id, productsToTags.productId))
+		.leftJoin(tags, eq(productsToTags.tagId, tags.id))
+		.where(and(gte(products.end, now), lt(products.end, monthAgo)))
+		.orderBy(asc(products.end))
+		.all();
+
+	const results = rows.reduce<ProductWithLimit[]>((acc, row) => {
+		const last = acc.length > 0 ? acc[acc.length - 1] : null
+		if (last && last.id === row.id) {
+			if (row.tagName) {
+				last.tags.push(row.tagName)
+			}
+			return acc
+		}
+
+		acc.push({
+			id: row.id,
+			title: row.title,
+			handle: row.handle,
+			vendor: row.vendor,
+			tags: row.tagName ? [row.tagName] : [],
+			startDate: row.start ? new Date(row.start).toISOString() : null,
+			endDate: row.end ? new Date(row.end).toISOString() : null,
+		})
+		return acc
+	}, [])
+
+	return c.json(results)
 })
 
 app.get('/products', async (c) => {
