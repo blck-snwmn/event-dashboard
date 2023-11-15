@@ -45,7 +45,7 @@ export default {
 					body: JSON.stringify({ url: msg.body.url }),
 				})
 				if (psResp.status !== 200) {
-					console.error(`(type=list)invalid status ${psResp.status}: POST http://localhost:8787/list`, msg.body.url)
+					console.error(`(type=${msg.body.type})invalid status ${psResp.status}: POST http://localhost:8787/list`, msg.body.url)
 					msg.retry()
 					continue
 				}
@@ -56,11 +56,11 @@ export default {
 					body: JSON.stringify(ps),
 				})
 				if (insertResp.status !== 200) {
-					console.error(`(type=list)invalid status ${insertResp.status}: PUT http://localhost:8787/products`)
+					console.error(`(type=${msg.body.type})invalid status ${insertResp.status}: PUT http://localhost:8787/products`)
 					msg.retry()
 					continue
 				}
-				console.log(`(type=list)success save: url=${msg.body.url}`)
+				console.log(`(type=${msg.body.type})success save: url=${msg.body.url}`)
 
 				const idsResp = await insertResp.json() as { id: number }[]
 				const savedIDs = idsResp.reduce<Record<number, {}>>((acc, cur) => {
@@ -88,7 +88,7 @@ export default {
 					console.log(`send batch: ${items.length} items`)
 					await env.QUEUE.sendBatch(items)
 				}
-				console.log(`(type=list)success enqueue: url=${msg.body.url}`)
+				console.log(`(type=${msg.body.type})success enqueue: url=${msg.body.url}`)
 
 				const blocks = []
 				for (const p of ps) {
@@ -125,7 +125,7 @@ export default {
 						},
 					})
 				}
-				console.info(`(type=list)success notify: url=${msg.body.url}`)
+				console.info(`(type=${msg.body.type})success notify: url=${msg.body.url}`)
 				msg.ack()
 			} else if (msg.body.type === "item") {
 				const itemResp = await env.COLLECTER.fetch("http://localhost:8787/item", {
@@ -133,7 +133,7 @@ export default {
 					body: JSON.stringify({ url: msg.body.url }),
 				})
 				if (itemResp.status !== 200) {
-					console.error(`(type=item)invalid status ${itemResp.status}: POST http://localhost:8787/item`, msg.body.url)
+					console.error(`(type=${msg.body.type})invalid status ${itemResp.status}: POST http://localhost:8787/item`, msg.body.url)
 					msg.retry()
 					continue
 				}
@@ -147,11 +147,11 @@ export default {
 					} as Itemliimit),
 				})
 				if (updateResp.status !== 200) {
-					console.error(`(type=item)invalid status ${updateResp.status}: POST http://localhost:8787/products, id=${msg.body.id}`)
+					console.error(`(type=${msg.body.type})invalid status ${updateResp.status}: POST http://localhost:8787/products, id=${msg.body.id}`)
 					msg.retry()
 					continue
 				}
-				console.log(`(type=item)success id=${msg.body.url}`)
+				console.log(`(type=${msg.body.type})success id=${msg.body.url}`)
 				msg.ack()
 			}
 		}
