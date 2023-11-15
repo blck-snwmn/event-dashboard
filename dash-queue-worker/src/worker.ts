@@ -1,6 +1,6 @@
 import { Product, Limit, Itemliimit } from "dash-message/message"
 
-type CrawleMessage = ListCrawleMessage | ItemCrawleMessage;
+type CrawleMessage = ListCrawleMessage | ItemCrawleMessage | EndingSoonMessage;
 
 interface ListCrawleMessage {
 	type: "list";
@@ -12,6 +12,11 @@ interface ItemCrawleMessage {
 	type: "item";
 	url: string;
 }
+
+interface EndingSoonMessage {
+	type: "endingsoon";
+}
+
 
 export interface Env {
 	BASE_URL: string;
@@ -152,6 +157,48 @@ export default {
 					continue
 				}
 				console.log(`(type=${msg.body.type})success id=${msg.body.url}`)
+				msg.ack()
+			} else if (msg.body.type === "endingsoon") {
+				const psResp = await env.COLLECTER.fetch("http://localhost:8787/products/endingsoon")
+				if (psResp.status !== 200) {
+					console.error(`(type=${msg.body.type})invalid status ${psResp.status}: GET http://localhost:8787/products/endingsoon`)
+					msg.retry()
+					continue
+				}
+				const ps = await psResp.json() as Product[]
+
+				const blocks = []
+				for (const p of ps) {
+					blocks.push({
+						type: "section",
+						text: {
+							type: "mrkdwn",
+							text: `*${p.title}*\n${env.BASE_URL}${p.handle}`
+						}
+					})
+				}
+				if (blocks.length !== 0) {
+					await env.SLACK_NOTIFIER.send({
+						type: "chat.postMessage",
+						body: {
+							channel: env.CHANNEL,
+							blocks: [
+								{
+									type: "header",
+									text: {
+										type: "plain_text",
+										text: "Ending soon Products"
+									}
+								},
+								{
+									type: "divider"
+								},
+								...blocks
+							]
+						},
+					})
+				}
+				console.info(`(type=${msg.body.type})success notify`)
 				msg.ack()
 			}
 		}
