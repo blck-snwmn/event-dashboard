@@ -30,7 +30,7 @@ export interface Env {
 
 export default {
 	async scheduled(controller: ScheduledController, env: Env,): Promise<void> {
-		console.info("scheduled.")
+		console.info(`scheduled. cron:${controller.cron}`)
 		await env.QUEUE.send(
 			{
 				type: "list",
