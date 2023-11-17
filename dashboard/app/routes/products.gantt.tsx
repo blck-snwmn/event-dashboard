@@ -76,7 +76,7 @@ const GanttChart: React.FC<{ data: ProductData[] }> = ({
 	}
 
 	const monthHeaders: { month: number; year: number; days: number }[] = [];
-	dateHeaders.forEach((date, index) => {
+	for (const date of dateHeaders) {
 		const lastItem = monthHeaders[monthHeaders.length - 1];
 		if (
 			lastItem &&
@@ -91,7 +91,7 @@ const GanttChart: React.FC<{ data: ProductData[] }> = ({
 				days: 1,
 			});
 		}
-	});
+	}
 
 	return (
 		<>
