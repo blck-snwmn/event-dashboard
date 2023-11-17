@@ -4,7 +4,7 @@
 		"enabled": true
 	},
 	"linter": {
-		"ignore": ["node_modules/*", "*/public/build/*"],
+		"ignore": ["node_modules/*", "*/public/build/*", "*/.wrangler/*"],
 		"enabled": true,
 		"rules": {
 			"recommended": true
