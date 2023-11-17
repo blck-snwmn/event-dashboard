@@ -21,7 +21,7 @@ type SelectedTags = string[];
 
 export default function Home() {
 	const results = useLoaderData<typeof loader>();
-	const allTags = results["Talent"];
+	const allTags = results.Talent;
 	if (!allTags) {
 		throw new Error("failed to fetch tags");
 	}
@@ -48,9 +48,9 @@ export default function Home() {
 	};
 
 	const groupedTags: { [key: string]: string[] } = {};
-	allTags.forEach((tag) => {
-		groupedTags["Talent"] = [...(groupedTags["Talent"] || []), tag];
-	});
+	for (const tag of allTags) {
+		groupedTags.Talent = [...(groupedTags.Talent || []), tag];
+	}
 	/* homeの共通処理 */
 	return (
 		<div className="flex">
