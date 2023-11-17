@@ -135,9 +135,8 @@ export function extractDates(salePeriodText: string) {
 	const startDate = periodMatch
 		? new Date(toISOString(periodMatch.slice(1, 6)))
 		: null;
-	const endDate =
-		periodMatch && periodMatch[6]
-			? new Date(toISOString(periodMatch.slice(6, 11)))
-			: null;
+	const endDate = periodMatch?.[6]
+		? new Date(toISOString(periodMatch.slice(6, 11)))
+		: null;
 	return { startDate, endDate };
 }
