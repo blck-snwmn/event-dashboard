@@ -33,7 +33,7 @@ app.get("/tags", async (c) => {
 	for (const row of rows) {
 		for (const key in tagGroups) {
 			if (row.name.startsWith(key)) {
-				tagGroups[key].push(row.name.replace(key + "_", ""));
+				tagGroups[key].push(row.name.replace(`${key}_`, ""));
 				break;
 			}
 		}

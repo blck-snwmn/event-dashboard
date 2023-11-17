@@ -105,7 +105,7 @@ export default app;
 async function isAllowByRobots(url: string) {
 	let isAllowed = true;
 	try {
-		const robotsTextPath = new URL(url).origin + "/robots.txt";
+		const robotsTextPath = `${new URL(url).origin}/robots.txt`;
 		const response = await fetch(robotsTextPath);
 
 		const robots = robotsParser(robotsTextPath, await response.text());
