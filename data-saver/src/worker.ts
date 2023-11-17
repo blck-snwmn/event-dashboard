@@ -205,12 +205,12 @@ app.post("/products", async (c) => {
 			.from(tags)
 			.where(inArray(tags.name, p.tags))
 			.execute();
-		savedTags.forEach((t) => {
+		for (const t of savedTags) {
 			insertProductsToTags.push({
 				productId: p.id,
 				tagId: t.id,
 			});
-		});
+		}
 	}
 	console.info(`insertProductsToTags: ${insertProductsToTags.length}`);
 
