@@ -77,8 +77,8 @@ export default {
 				console.log(`(type=${msg.body.type})success save: url=${msg.body.url}`);
 
 				const idsResp = (await insertResp.json()) as { id: number }[];
-				const savedIDs = idsResp.reduce<Record<number, never>>((acc, cur) => {
-					acc[cur.id] = {} as never;
+				const savedIDs = idsResp.reduce<Record<number, boolean>>((acc, cur) => {
+					acc[cur.id] = true;
 					return acc;
 				}, {});
 
