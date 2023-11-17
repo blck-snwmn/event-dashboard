@@ -1,4 +1,4 @@
-import { Product, Limit, Itemliimit } from "dash-message/message";
+import { Itemliimit, Limit, Product } from "dash-message/message";
 
 type CrawleMessage = ListCrawleMessage | ItemCrawleMessage | EndingSoonMessage;
 
@@ -77,8 +77,8 @@ export default {
 				console.log(`(type=${msg.body.type})success save: url=${msg.body.url}`);
 
 				const idsResp = (await insertResp.json()) as { id: number }[];
-				const savedIDs = idsResp.reduce<Record<number, {}>>((acc, cur) => {
-					acc[cur.id] = {};
+				const savedIDs = idsResp.reduce<Record<number, never>>((acc, cur) => {
+					acc[cur.id] = {} as never;
 					return acc;
 				}, {});
 
