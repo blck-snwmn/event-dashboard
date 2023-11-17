@@ -102,7 +102,7 @@ const GanttChart: React.FC<{ data: ProductData[] }> = ({
 					<div
 						style={{ width: productNameWidth, height: cellHeight }}
 						className="text-center font-bold bg-gray-300"
-					></div>
+					/>
 					<div
 						style={{ width: productNameWidth, height: cellHeight }}
 						className="text-center font-bold border-b bg-gray-300"
@@ -111,7 +111,7 @@ const GanttChart: React.FC<{ data: ProductData[] }> = ({
 					</div>
 					{data.map((item, index) => (
 						<span
-							key={index}
+							key={item.name}
 							style={{ width: productNameWidth, height: cellHeight }}
 							className="border-b bg-white"
 						>
@@ -128,9 +128,9 @@ const GanttChart: React.FC<{ data: ProductData[] }> = ({
 					<div>
 						{/* 月と年のヘッダー */}
 						<div className="flex">
-							{monthHeaders.map((header, index) => (
+							{monthHeaders.map((header) => (
 								<div
-									key={index}
+									key={`${header.year}-${header.month}-${header.days}`}
 									style={{
 										width: `${parseFloat(cellWidth) * header.days}px`,
 										height: cellHeight,
@@ -146,7 +146,7 @@ const GanttChart: React.FC<{ data: ProductData[] }> = ({
 						<div className="flex">
 							{dateHeaders.map((date, index) => (
 								<div
-									key={index}
+									key={date.getTime()}
 									style={{ width: cellWidth, height: cellHeight }}
 									className={`text-center border-r border-b ${
 										isToday(date) ? "bg-yellow-200" : "bg-gray-300"
@@ -160,7 +160,7 @@ const GanttChart: React.FC<{ data: ProductData[] }> = ({
 						{/* ガントチャートの行 */}
 						{data.map((item, index) => (
 							<GanttRow
-								key={index}
+								key={item.name}
 								data={item}
 								chartStartDate={chartStartDate}
 								chartEndDate={chartEndDate}
@@ -195,10 +195,11 @@ const GanttRow: React.FC<GanttRowProps> = ({
 							1,
 					}).map((_, idx) => (
 						<div
+							// biome-ignore lint/suspicious/noArrayIndexKey: This array is used to create tables.
 							key={idx}
 							style={{ width: cellWidth }}
 							className="border-r border-b h-full"
-						></div>
+						/>
 					))}
 				</div>
 			</div>
@@ -242,7 +243,7 @@ const GanttRow: React.FC<GanttRowProps> = ({
 						height: `${barHeight}px`,
 					}}
 					className="absolute bg-blue-400 bottom-0"
-				></div>
+				/>
 				{Array.from({
 					length:
 						(chartEndDate.getTime() - chartStartDate.getTime()) /
@@ -250,6 +251,7 @@ const GanttRow: React.FC<GanttRowProps> = ({
 						1,
 				}).map((_, idx) => (
 					<div
+						// biome-ignore lint/suspicious/noArrayIndexKey: This array is used to create tables.
 						key={idx}
 						style={{ width: cellWidth }}
 						className={`border-r border-b h-full ${
@@ -257,7 +259,7 @@ const GanttRow: React.FC<GanttRowProps> = ({
 								? "bg-yellow-200"
 								: ""
 						}`}
-					></div>
+					/>
 				))}
 			</div>
 		</div>

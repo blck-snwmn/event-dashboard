@@ -61,6 +61,7 @@ function Product(props: { p: ProductWithLimit }) {
 	return (
 		<div className="table-row p-5">
 			{values.map((v, i) => (
+				// biome-ignore lint/suspicious/noArrayIndexKey: show elements in a table
 				<div key={i} className="table-cell p-1 border border-slate-300">
 					{v}
 				</div>
@@ -98,7 +99,7 @@ function Products(props: {
 					<div className="table-row">
 						{headers.map((h, i) => (
 							<div
-								key={i}
+								key={h}
 								className="table-cell p-1 text-left border border-slate-300"
 							>
 								{h}
