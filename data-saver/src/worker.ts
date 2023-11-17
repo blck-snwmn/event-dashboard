@@ -8,9 +8,10 @@ import { and, asc, desc, eq, gt, gte, inArray, lt } from "drizzle-orm";
 type Bindings = {
 	DB: D1Database;
 };
-type Variables = {};
+// type Variables = {};
 
-const app = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+// const app = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+const app = new Hono<{ Bindings: Bindings }>();
 
 // app.delete('/', async (c) => {
 // 	const db = drizzle(c.env.DB, { schema });
