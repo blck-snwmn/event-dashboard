@@ -62,10 +62,12 @@ export default function Home() {
 				<div className="mb-4 p-4">
 					{Object.keys(groupedTags).map((group) => (
 						<div key={group}>
+							{/* biome-ignore lint/a11y/useKeyWithClickEvents: */}
 							<div onClick={() => handleGroupToggle(group)}>{group}</div>
 							<div className="flex flex-row flex-wrap whitespace-nowrap">
 								{openGroups.includes(group) &&
 									groupedTags[group].map((tag) => (
+										// biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
 										<div
 											key={tag}
 											className={`m-1 p-1 cursor-pointer rounded ${
