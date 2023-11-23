@@ -1,0 +1,26 @@
+name: Lint & Format
+
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: true
+      - name: migration
+        run: |
+          pnpm  wrangler d1 migrations apply event-products --local
+        working-directory: ./data-saver
+      - name: test data-saver
+        run: |
+          pnpm vitest test
+        working-directory: ./data-saver
+      - name: test data-collector
+        run: |
+          pnpm vitest test
+        working-directory: ./data-collector
