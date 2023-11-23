@@ -11,5 +11,8 @@
   "license": "ISC",
   "devDependencies": {
     "@biomejs/biome": "^1.3.3"
+  },
+  "dependencies": {
+    "vitest": "^0.34.6"
   }
 }
