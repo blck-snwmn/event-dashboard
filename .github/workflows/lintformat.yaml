@@ -15,6 +15,7 @@ jobs:
       - name: lint
         run: |
           pnpm biome lint .
+  
   format:
     runs-on: ubuntu-latest
     steps:
