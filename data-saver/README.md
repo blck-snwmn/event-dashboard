@@ -20,3 +20,8 @@ for remote
 ```bash
 $ pnpm wrangler d1 migrations apply event-products
 ```
+
+## Test
+```bash
+$ pnpm vitest run
+```
