@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { extractDates } from "./worker";
+import { extractDates, toISOString } from "./worker";
 
 describe("extractDates", () => {
 	// "2023年10月25日 18時00分 ～",
@@ -41,5 +41,26 @@ describe("extractDates", () => {
 			startDate: new Date("2023-11-01T12:00:00+09:00"),
 			endDate: null,
 		});
+	});
+});
+
+describe("toISOString", () => {
+	test("no padding", () => {
+		expect(toISOString(["2023", "11", "12", "13", "14"])).toBe(
+			"2023-11-12T13:14:00+09:00",
+		);
+	});
+	test("0 padding", () => {
+		expect(toISOString(["2023", "1", "2", "8", "9"])).toBe(
+			"2023-01-02T08:09:00+09:00",
+		);
+	});
+	test("too short length arguments, throw exception", () => {
+		expect(() => toISOString(["2023", "1", "2", "8"])).toThrow();
+	});
+	test("too long length arguments, ignore extra arguments", () => {
+		expect(toISOString(["2023", "1", "2", "8", "9", "10"])).toBe(
+			"2023-01-02T08:09:00+09:00",
+		);
 	});
 });

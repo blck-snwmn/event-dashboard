@@ -1,7 +1,7 @@
 import puppeteer from "@cloudflare/puppeteer";
-import robotsParser from "robots-parser";
-import { Product, Limit } from "dash-message/message";
+import { Limit, Product } from "dash-message/message";
 import { Hono } from "hono";
+import robotsParser from "robots-parser";
 
 type Bindings = {
 	SELECTOR: string;
@@ -117,7 +117,7 @@ async function isAllowByRobots(url: string) {
 }
 
 // Helper function to convert matched date parts to ISO 8601 date string with JST timezone
-function toISOString(match: string[]) {
+export function toISOString(match: string[]) {
 	const [year, month, day, hour, minute] = match;
 	return `${year.padStart(4, "0")}-${month.padStart(2, "0")}-${day.padStart(
 		2,
