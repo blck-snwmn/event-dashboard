@@ -6,8 +6,8 @@ on:
       - main
     paths-ignore: 
       - 'README.md'
-      - '.github/**'
       - "!.github/workflows/deploy.yaml"
+      - '.github/**'
 
 jobs:
   deploy:
