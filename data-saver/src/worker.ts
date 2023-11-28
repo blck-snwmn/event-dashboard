@@ -8,19 +8,8 @@ import * as schema from "./db/product";
 type Bindings = {
 	DB: D1Database;
 };
-// type Variables = {};
 
-// const app = new Hono<{ Bindings: Bindings; Variables: Variables }>();
 const app = new Hono<{ Bindings: Bindings }>();
-
-// app.delete('/', async (c) => {
-// 	const db = drizzle(c.env.DB, { schema });
-// 	await db.delete(productsToTags).execute()
-// 	await db.delete(tags).execute()
-// 	await db.delete(products).execute()
-
-// 	return c.text("ok")
-// })
 
 app.get("/tags", async (c) => {
 	const db = drizzle(c.env.DB, { schema });
