@@ -58,13 +58,16 @@ export const productsToTags = sqliteTable(
 	}),
 );
 
-export const productsToTagsRelations = relations(productsToTags, ({ one }) => ({
-	product: one(products, {
-		fields: [productsToTags.productId],
-		references: [products.id],
+export const productsToTagsRelations = relations(
+	productsToTags,
+	({ one }) => ({
+		product: one(products, {
+			fields: [productsToTags.productId],
+			references: [products.id],
+		}),
+		tag: one(tags, {
+			fields: [productsToTags.tagId],
+			references: [tags.id],
+		}),
 	}),
-	tag: one(tags, {
-		fields: [productsToTags.tagId],
-		references: [tags.id],
-	}),
-}));
+);
