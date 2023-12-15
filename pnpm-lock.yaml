@@ -95,8 +95,8 @@ importers:
         specifier: workspace:^
         version: link:../dash-message
       hono:
-        specifier: ^3.11.1
-        version: 3.11.1
+        specifier: ^3.11.7
+        version: 3.11.7
       robots-parser:
         specifier: ^3.0.1
         version: 3.0.1
@@ -126,8 +126,8 @@ importers:
         specifier: ^0.29.1
         version: 0.29.1(@cloudflare/workers-types@4.20231121.0)
       hono:
-        specifier: ^3.11.1
-        version: 3.11.1
+        specifier: ^3.11.7
+        version: 3.11.7
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20231121.0
@@ -4588,8 +4588,8 @@ packages:
     resolution: {integrity: sha512-2bsegYkkHO+h/9MGbn6KWcE45cHZgPANo5LXF7EvWdT0yT2EguSVO1nDgU5c8+ZOPwp2vMNa7YFsJhVcDR9Sdg==}
     dev: true
 
-  /hono@3.11.1:
-    resolution: {integrity: sha512-8FNUh8p/dkw8qYFxy8IJA500iW9NSeuvuwRfLw0FGkE/blCxtqWqxWTB+NaLSK3qGpaudzKur6s40Q0kpO0E+w==}
+  /hono@3.11.7:
+    resolution: {integrity: sha512-TcfAq7IdipF+9coxnuzYlSSBXbm9mTyWjjagLCv/2ampboNcKJdi+XCK5G48mHQtpI5+9Rj3J4FfcGgw9vzIww==}
     engines: {node: '>=16.0.0'}
     dev: false
 
