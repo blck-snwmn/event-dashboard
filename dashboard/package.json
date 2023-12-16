@@ -12,9 +12,9 @@
   },
   "dependencies": {
     "@cloudflare/kv-asset-handler": "^0.3.0",
-    "@remix-run/cloudflare": "^2.3.1",
-    "@remix-run/css-bundle": "^2.3.1",
-    "@remix-run/react": "^2.3.1",
+    "@remix-run/cloudflare": "^2.4.0",
+    "@remix-run/css-bundle": "^2.4.0",
+    "@remix-run/react": "^2.4.0",
     "dash-message": "workspace:^",
     "isbot": "^3.7.1",
     "react": "^18.2.0",
@@ -22,14 +22,14 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20231121.0",
-    "@remix-run/dev": "^2.3.1",
-    "@remix-run/eslint-config": "^2.3.1",
-    "@types/react": "^18.2.41",
-    "@types/react-dom": "^18.2.17",
-    "eslint": "^8.55.0",
-    "tailwindcss": "^3.3.5",
-    "typescript": "^5.3.2",
-    "wrangler": "^3.18.0"
+    "@remix-run/dev": "^2.4.0",
+    "@remix-run/eslint-config": "^2.4.0",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "eslint": "^8.56.0",
+    "tailwindcss": "^3.3.6",
+    "typescript": "^5.3.3",
+    "wrangler": "^3.21.0"
   },
   "engines": {
     "node": ">=18.0.0"
