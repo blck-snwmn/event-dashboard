@@ -27,6 +27,7 @@ describe("Wrangler", () => {
 					},
 				],
 			},
+			ip: "127.0.0.1",
 		});
 
 		const res = await worker.fetch("/products", {
