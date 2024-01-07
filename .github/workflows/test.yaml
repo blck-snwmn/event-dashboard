@@ -18,9 +18,9 @@ jobs:
         working-directory: ./data-saver
       - name: test data-saver
         run: |
-          pnpm vitest test
+          pnpm vitest run
         working-directory: ./data-saver
       - name: test data-collector
         run: |
-          pnpm vitest test
+          pnpm vitest run
         working-directory: ./data-collector
