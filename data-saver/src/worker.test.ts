@@ -27,7 +27,6 @@ describe("Wrangler", () => {
 					},
 				],
 			},
-			port: 8787,
 		});
 
 		const res = await worker.fetch("/products", {
