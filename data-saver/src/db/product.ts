@@ -1,12 +1,12 @@
+import { relations, sql } from "drizzle-orm";
 import {
+	index,
 	integer,
 	primaryKey,
 	sqliteTable,
 	text,
 	uniqueIndex,
-	index,
 } from "drizzle-orm/sqlite-core";
-import { sql, relations } from "drizzle-orm";
 
 export const products = sqliteTable(
 	"products",
@@ -58,16 +58,13 @@ export const productsToTags = sqliteTable(
 	}),
 );
 
-export const productsToTagsRelations = relations(
-	productsToTags,
-	({ one }) => ({
-		product: one(products, {
-			fields: [productsToTags.productId],
-			references: [products.id],
-		}),
-		tag: one(tags, {
-			fields: [productsToTags.tagId],
-			references: [tags.id],
-		}),
+export const productsToTagsRelations = relations(productsToTags, ({ one }) => ({
+	product: one(products, {
+		fields: [productsToTags.productId],
+		references: [products.id],
 	}),
-);
+	tag: one(tags, {
+		fields: [productsToTags.tagId],
+		references: [tags.id],
+	}),
+}));
