@@ -14,7 +14,7 @@
 	},
 	"dependencies": {
 		"dash-message": "workspace:^",
-		"hono": "^3.12.3",
+		"hono": "^3.12.4",
 		"robots-parser": "^3.0.1"
 	}
 }
