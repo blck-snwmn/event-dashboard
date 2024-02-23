@@ -10,11 +10,11 @@
 		"@cloudflare/puppeteer": "^0.0.5",
 		"@cloudflare/workers-types": "^4.20240208.0",
 		"typescript": "^5.3.3",
-		"wrangler": "^3.28.1"
+		"wrangler": "^3.28.3"
 	},
 	"dependencies": {
 		"dash-message": "workspace:^",
-		"hono": "^4.0.1",
+		"hono": "^4.0.4",
 		"robots-parser": "^3.0.1"
 	}
 }
