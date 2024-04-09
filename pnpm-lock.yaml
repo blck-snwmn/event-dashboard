@@ -95,8 +95,8 @@ importers:
         version: 3.0.1
     devDependencies:
       '@cloudflare/puppeteer':
-        specifier: ^0.0.5
-        version: 0.0.5
+        specifier: ^0.0.6
+        version: 0.0.6
       '@cloudflare/workers-types':
         specifier: ^4.20240222.0
         version: 4.20240222.0
@@ -576,8 +576,8 @@ packages:
     dependencies:
       mime: 3.0.0
 
-  /@cloudflare/puppeteer@0.0.5:
-    resolution: {integrity: sha512-K+DLUmDVSM5UNzFokSqie0LPIFAPvdkLKHWnx8Gmck/M41387aCyLlUjWIeUGV3QifSRwaxTRfeMpELQW0lDZg==}
+  /@cloudflare/puppeteer@0.0.6:
+    resolution: {integrity: sha512-HwIdiGs3ls2mKVDm3hoobEYnH4p4K5UrxeFGklDzKALR3cHBWv6zryNCVkK4i/LYCbaCZCnQx+3vtBUqynii4Q==}
     engines: {node: '>=14.1.0'}
     dependencies:
       debug: 4.3.4
