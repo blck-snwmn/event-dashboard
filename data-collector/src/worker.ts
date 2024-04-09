@@ -25,7 +25,7 @@ app.use("*", async (c, next) => {
 		return new Response("robots.txt disallows crawling", { status: 403 });
 	}
 
-	console.log("robots.txt allows crawling");
+	console.info("robots.txt allows crawling");
 
 	console.info("waiting for browser to launch");
 
