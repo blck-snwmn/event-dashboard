@@ -3,7 +3,7 @@ name = "event-dashboard"
 # workers_dev = true
 main = "./build/index.js"
 # https://developers.cloudflare.com/workers/platform/compatibility-dates
-compatibility_date = "2023-10-21"
+compatibility_date = "2024-04-09"
 
 services = [
   { binding = "SAVER", service = "dash-data-saver"}
