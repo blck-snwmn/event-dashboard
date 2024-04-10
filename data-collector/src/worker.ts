@@ -33,10 +33,20 @@ app.use("*", async (c, next) => {
 
 	console.info("launching browser");
 
+	const sessionId = await getRandomSession(c.env.BROWSER);
+
 	let browser: puppeteer.Browser | null = null;
 	try {
-		browser = await puppeteer.launch(c.env.BROWSER);
-		console.info("browser launched");
+		if (sessionId) {
+			console.info("connecting to existing session");
+			browser = await puppeteer.connect(c.env.BROWSER, sessionId);
+			console.info("browser connected");
+		}
+		if (!browser) {
+			console.info("launching new browser");
+			browser = await puppeteer.launch(c.env.BROWSER);
+			console.info("browser launched");
+		}
 		c.set("browser", browser);
 	} catch (e) {
 		console.error(e);
@@ -48,7 +58,8 @@ app.use("*", async (c, next) => {
 
 	await next();
 
-	await browser?.close();
+	// use disconnect instead of close to keep the session alive
+	await browser?.disconnect();
 });
 
 app.post("/list", async (c) => {
@@ -139,4 +150,30 @@ export function extractDates(salePeriodText: string) {
 		? new Date(toISOString(periodMatch.slice(6, 11)))
 		: null;
 	return { startDate, endDate };
+}
+
+// Pick random free session
+// Other custom logic could be used instead
+async function getRandomSession(
+	endpoint: puppeteer.BrowserWorker,
+): Promise<string> {
+	const sessions: puppeteer.ActiveSession[] =
+		await puppeteer.sessions(endpoint);
+	console.info(`Sessions: ${JSON.stringify(sessions)}`);
+	const sessionsIds = sessions
+		.filter((v) => {
+			return !v.connectionId; // remove sessions with workers connected to them
+		})
+		.map((v) => {
+			return v.sessionId;
+		});
+	if (sessionsIds.length === 0) {
+		console.error("No free sessions");
+		return "";
+	}
+
+	const sessionId = sessionsIds[Math.floor(Math.random() * sessionsIds.length)];
+	console.info(`Selected session: ${sessionId}`);
+
+	return sessionId;
 }
