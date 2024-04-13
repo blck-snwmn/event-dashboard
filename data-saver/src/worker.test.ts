@@ -1,8 +1,8 @@
-import { ProductWithLimit } from "dash-message/message";
+import type { ProductWithLimit } from "dash-message/message";
 import { afterAll, beforeAll, describe, expect, it, test } from "vitest";
 import { unstable_dev } from "wrangler";
 import type { UnstableDevWorker } from "wrangler";
-import { products } from "./db/product";
+import type { products } from "./db/product";
 import app from "./worker";
 
 function getRandomInt(max: number) {

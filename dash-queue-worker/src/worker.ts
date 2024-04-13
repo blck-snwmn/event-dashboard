@@ -1,4 +1,4 @@
-import { Itemliimit, Limit, Product } from "dash-message/message";
+import type { Itemliimit, Limit, Product } from "dash-message/message";
 
 type CrawleMessage = ListCrawleMessage | ItemCrawleMessage | EndingSoonMessage;
 

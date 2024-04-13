@@ -1,5 +1,5 @@
 import puppeteer from "@cloudflare/puppeteer";
-import { Limit, Product } from "dash-message/message";
+import type { Limit, Product } from "dash-message/message";
 import { Hono } from "hono";
 import robotsParser from "robots-parser";
 

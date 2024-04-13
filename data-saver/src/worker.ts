@@ -1,4 +1,8 @@
-import { Itemliimit, Product, ProductWithLimit } from "dash-message/message";
+import type {
+	Itemliimit,
+	Product,
+	ProductWithLimit,
+} from "dash-message/message";
 import { and, asc, desc, eq, gt, gte, inArray, lt } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
 import { Hono } from "hono";

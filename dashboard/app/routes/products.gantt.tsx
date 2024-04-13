@@ -132,7 +132,7 @@ const GanttChart: React.FC<{ data: ProductData[] }> = ({
 								<div
 									key={`${header.year}-${header.month}-${header.days}`}
 									style={{
-										width: `${parseFloat(cellWidth) * header.days}px`,
+										width: `${Number.parseFloat(cellWidth) * header.days}px`,
 										height: cellHeight,
 									}}
 									className="text-center font-bold border-r border-b bg-gray-300 flex-shrink-0"
@@ -229,9 +229,9 @@ const GanttRow: React.FC<GanttRowProps> = ({
 	}
 
 	const duration = endOffset - startOffset + 1;
-	const barPosition = startOffset * parseFloat(cellWidth);
-	const barWidth = duration * parseFloat(cellWidth);
-	const barHeight = parseFloat(cellHeight) / 2;
+	const barPosition = startOffset * Number.parseFloat(cellWidth);
+	const barWidth = duration * Number.parseFloat(cellWidth);
+	const barHeight = Number.parseFloat(cellHeight) / 2;
 
 	return (
 		<div className="flex items-end" style={{ height: cellHeight }}>
