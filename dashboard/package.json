@@ -16,18 +16,18 @@
 		"@remix-run/css-bundle": "^2.9.2",
 		"@remix-run/react": "^2.9.2",
 		"dash-message": "workspace:^",
-		"isbot": "^5.1.6",
+		"isbot": "^5.1.7",
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1"
 	},
 	"devDependencies": {
 		"@cloudflare/workers-types": "^4.20240512.0",
 		"@remix-run/dev": "^2.9.2",
-		"@types/react": "^18.3.2",
+		"@types/react": "^18.3.3",
 		"@types/react-dom": "^18.3.0",
 		"tailwindcss": "^3.4.3",
 		"typescript": "^5.4.5",
-		"wrangler": "^3.55.0"
+		"wrangler": "^3.57.1"
 	},
 	"engines": {
 		"node": ">=18.0.0"
