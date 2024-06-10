@@ -7,14 +7,14 @@
 		"start": "wrangler dev"
 	},
 	"devDependencies": {
-		"@cloudflare/puppeteer": "^0.0.9",
-		"@cloudflare/workers-types": "^4.20240512.0",
+		"@cloudflare/puppeteer": "^0.0.10",
+		"@cloudflare/workers-types": "^4.20240605.0",
 		"typescript": "^5.4.5",
-		"wrangler": "^3.57.1"
+		"wrangler": "^3.60.0"
 	},
 	"dependencies": {
 		"dash-message": "workspace:^",
-		"hono": "^4.4.0",
+		"hono": "^4.4.4",
 		"robots-parser": "^3.0.1"
 	}
 }
