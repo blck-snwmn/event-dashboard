@@ -4,7 +4,8 @@
 	"private": true,
 	"scripts": {
 		"deploy": "wrangler publish",
-		"start": "wrangler dev"
+		"start": "wrangler dev",
+		"test": "vitest run"
 	},
 	"devDependencies": {
 		"@cloudflare/puppeteer": "^0.0.11",

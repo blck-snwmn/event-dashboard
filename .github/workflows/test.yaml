@@ -16,11 +16,6 @@ jobs:
         run: |
           pnpm  wrangler d1 migrations apply event-products --local
         working-directory: ./data-saver
-      - name: test data-saver
+      - name: test
         run: |
-          pnpm vitest run
-        working-directory: ./data-saver
-      - name: test data-collector
-        run: |
-          pnpm vitest run
-        working-directory: ./data-collector
+          pnpm turbo test
