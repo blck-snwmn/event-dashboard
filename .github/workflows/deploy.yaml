@@ -28,8 +28,6 @@ jobs:
           files: ${{ matrix.directory }}/**
       - uses: pnpm/action-setup@v4
         if: ${{ steps.changed-files.outputs.any_changed == 'true' }}  
-        with:
-          version: 9
       - name: Deploy
         if: ${{ steps.changed-files.outputs.any_changed == 'true' }}
         uses: cloudflare/wrangler-action@v3
