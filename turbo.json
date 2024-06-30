@@ -5,6 +5,10 @@
 			"dependsOn": ["^build"],
 			"outputs": ["dist/**", ".wrangler/**", "build/**"]
 		},
+		"deploy": {
+			"dependsOn": ["build"],
+			"outputs": []
+		},
 		"test": {
 			"outputs": []
 		}
