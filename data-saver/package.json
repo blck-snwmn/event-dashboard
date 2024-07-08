@@ -9,13 +9,13 @@
 	},
 	"devDependencies": {
 		"@cloudflare/workers-types": "^4.20240620.0",
-		"drizzle-kit": "^0.22.7",
-		"typescript": "^5.5.2",
-		"wrangler": "^3.61.0"
+		"drizzle-kit": "^0.22.8",
+		"typescript": "^5.5.3",
+		"wrangler": "^3.63.1"
 	},
 	"dependencies": {
 		"dash-message": "workspace:^",
-		"drizzle-orm": "^0.31.2",
-		"hono": "^4.4.7"
+		"drizzle-orm": "^0.31.3",
+		"hono": "^4.4.12"
 	}
 }
