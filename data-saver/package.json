@@ -8,14 +8,14 @@
 		"test": "vitest run"
 	},
 	"devDependencies": {
-		"@cloudflare/workers-types": "^4.20240620.0",
-		"drizzle-kit": "^0.22.7",
-		"typescript": "^5.5.2",
-		"wrangler": "^3.61.0"
+		"@cloudflare/workers-types": "^4.20240718.0",
+		"drizzle-kit": "^0.23.0",
+		"typescript": "^5.5.3",
+		"wrangler": "^3.65.1"
 	},
 	"dependencies": {
 		"dash-message": "workspace:^",
-		"drizzle-orm": "^0.31.2",
-		"hono": "^4.4.7"
+		"drizzle-orm": "^0.32.0",
+		"hono": "^4.5.1"
 	}
 }
