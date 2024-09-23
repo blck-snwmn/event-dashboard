@@ -8,14 +8,14 @@
 		"test": "vitest run"
 	},
 	"devDependencies": {
-		"@cloudflare/puppeteer": "^0.0.11",
-		"@cloudflare/workers-types": "^4.20240620.0",
-		"typescript": "^5.5.2",
-		"wrangler": "^3.61.0"
+		"@cloudflare/puppeteer": "^0.0.14",
+		"@cloudflare/workers-types": "^4.20240919.0",
+		"typescript": "^5.6.2",
+		"wrangler": "^3.78.7"
 	},
 	"dependencies": {
 		"dash-message": "workspace:^",
-		"hono": "^4.4.7",
+		"hono": "^4.6.2",
 		"robots-parser": "^3.0.1"
 	}
 }
